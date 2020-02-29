@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/home"
+    <item android:id="@+id/appHome"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/home_title" />
 
-    <item android:id="@+id/new_note"
+    <item android:id="@+id/createNote"
         android:icon="@drawable/ic_create_black_24dp"
         android:title="@string/create_title" />
 

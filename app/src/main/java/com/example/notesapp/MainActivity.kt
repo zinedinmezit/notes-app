@@ -22,56 +22,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_nav)
             .setupWithNavController(navController)
 
-        val bottomNav : BottomNavigationView = findViewById(R.id.bottom_nav)
-        bottomNav.setOnNavigationItemSelectedListener {
-            lateinit var fragment : Fragment
-            when(it.itemId){
-                R.id.createNote ->{
-                    fragment = CreateNoteFragment()
-                    loadFragment(fragment)
-                    true
-                }
-
-                R.id.calendar ->{
-                    fragment = CalendarFragment()
-                    loadFragment(fragment)
-                    true
-                }
-
-                R.id.appHome ->{
-                    fragment = MainFragment()
-                    loadFragment(fragment)
-                    true
-                }
-                else -> false
-            }
-
-        }
-
     }
 
-    public fun loadFragment(_fragment : Fragment)
-    {
-
-        val currentFragment = findCurrentFragment()
-        val _fragmentManager : FragmentManager = supportFragmentManager
-
-        _fragmentManager.beginTransaction()
-            .replace(currentFragment.id,_fragment)
-            .commit()
-
-    }
-
-    public fun findCurrentFragment():Fragment{
-
-        lateinit var currentFragment : Fragment
-        val _fragmentManager : FragmentManager = supportFragmentManager
-        val _fragments : List<Fragment> = _fragmentManager.fragments
-        for(x in _fragments)
-        {
-            if(x.isVisible)
-                currentFragment=x
-        }
-        return currentFragment
-    }
 }

@@ -3,11 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/appHome">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.notesapp.fragments.MainFragment"
+        android:id="@+id/appHome"
         tools:layout="@layout/fragment_main"
+        android:name="com.example.notesapp.fragments.MainFragment"
         android:label="MainFragment" />
+    <fragment
+        android:id="@+id/calendar"
+        tools:layout="@layout/fragment_calendar"
+        android:name="com.example.notesapp.fragments.CalendarFragment"
+        android:label="CalendarFragment" />
+    <fragment
+        android:id="@+id/createNote"
+        tools:layout="@layout/fragment_create"
+        android:name="com.example.notesapp.fragments.CreateNoteFragment"
+        android:label="CreateNoteFragment" />
 </navigation>

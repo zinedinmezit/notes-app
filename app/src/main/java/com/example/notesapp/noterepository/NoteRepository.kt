@@ -1,0 +1,14 @@
+package com.example.notesapp.noterepository
+
+import androidx.lifecycle.LiveData
+import com.example.notesapp.database.NoteDao
+import com.example.notesapp.entities.Note
+
+class NoteRepository(private val noteDao : NoteDao) {
+
+    val allNotes : LiveData<List<Note>> = noteDao.getNotesByPriority()
+
+    suspend fun insert(note : Note){
+        noteDao.insert(note)
+    }
+}

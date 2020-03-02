@@ -24,15 +24,9 @@ class MainFragment : Fragment() {
 
         _binding = FragmentMainBinding.inflate(inflater,container,false)
 
-        binding.button.setOnClickListener {
-            Toast.makeText(context,"GRESKA",Toast.LENGTH_LONG).show()
-        }
-
         val view = binding.root
         return view
         }
-
-
     }
 
 

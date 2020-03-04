@@ -9,16 +9,20 @@ import com.example.notesapp.entities.Note
 import com.example.notesapp.noterepository.NoteRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application): AndroidViewModel(application) {
+class CreateViewModel(application: Application): AndroidViewModel(application) {
 
     private val repository : NoteRepository
-
-    val allNotes : LiveData<List<Note>>
 
     init{
         val notesDao = NoteRoomDatabase.getDatabase(application).noteDao()
         repository = NoteRepository(notesDao)
-        allNotes = repository.allNotes
+    }
+
+    fun insertNote(note : Note)
+    {
+        viewModelScope.launch {
+            repository.insert(note)
+        }
     }
 
 }

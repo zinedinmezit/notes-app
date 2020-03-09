@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:orientation="vertical"
-    android:paddingBottom="5dp">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="notes"
+            type="com.example.notesapp.entities.Note" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardBackground">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/cardBackground"
+        android:minHeight="80dp">
 
         <TextView
             android:id="@+id/note_heading"
@@ -23,15 +28,16 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Danas je lijep" />
+            android:maxLength="24"
+            android:maxLines="1"
+            app:TitleSetter="@{notes}"
+            tools:text="dasdas dasdas" />
 
         <TextView
             android:id="@+id/note_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:ellipsize="end"
             android:fontFamily="@font/open_sans"
             android:maxLength="85"
@@ -42,7 +48,8 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/note_heading"
-            tools:text="ukazuju da je ta promjena vrlo moguca" />
+            app:DetailsSetter="@{notes}"
+            tools:text="ukazuju da je ta promjena vrdsasa dsadsa dsadsad dsadasdsa" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"
@@ -69,9 +76,10 @@
                 android:fontFamily="@font/open_sans_bold"
                 android:textColor="@color/whiteText"
                 android:textSize="24sp"
+                app:PrioritySetter="@{notes}"
                 tools:text="1" />
 
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+</layout>

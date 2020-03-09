@@ -17,12 +17,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:defaultNavHost="true"
-        app:navGraph="@navigation/main_nav_graph" />
+        app:navGraph="@navigation/main_nav_graph"
+        tools:ignore="FragmentTagUsage" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

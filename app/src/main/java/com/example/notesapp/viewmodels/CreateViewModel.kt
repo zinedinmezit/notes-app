@@ -2,11 +2,10 @@ package com.example.notesapp.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.notesapp.database.NoteRoomDatabase
 import com.example.notesapp.entities.Note
-import com.example.notesapp.noterepository.NoteRepository
+import com.example.notesapp.repositories.NoteRepository
 import kotlinx.coroutines.launch
 
 class CreateViewModel(application: Application): AndroidViewModel(application) {

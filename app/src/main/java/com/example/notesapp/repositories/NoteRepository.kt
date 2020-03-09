@@ -1,4 +1,4 @@
-package com.example.notesapp.noterepository
+package com.example.notesapp.repositories
 
 import androidx.lifecycle.LiveData
 import com.example.notesapp.database.NoteDao

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.notesapp.R
 import com.example.notesapp.adapters.NoteAdapter
+import com.example.notesapp.adapters.NoteListener
 import com.example.notesapp.databinding.FragmentMainBinding
 import com.example.notesapp.viewmodels.MainViewModel
 
@@ -33,7 +34,7 @@ class MainFragment : Fragment() {
         val binding : FragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main,container,false)
 
 
-        val adapter = NoteAdapter()
+        val adapter = NoteAdapter(NoteListener { id -> Toast.makeText(context,"$id",Toast.LENGTH_SHORT).show() })
         binding.notesList.adapter = adapter
 
         model.allNotes.observe(viewLifecycleOwner, Observer {

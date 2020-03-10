@@ -9,7 +9,7 @@ import com.example.notesapp.R
 import com.example.notesapp.databinding.RecyclerviewItemBinding
 import com.example.notesapp.entities.Note
 
-class NoteAdapter: ListAdapter<Note,NoteViewHolder>(NoteDiffCallback()) {
+class NoteAdapter(val clickListener : NoteListener): ListAdapter<Note,NoteViewHolder>(NoteDiffCallback()) {
 
 
 
@@ -18,15 +18,16 @@ class NoteAdapter: ListAdapter<Note,NoteViewHolder>(NoteDiffCallback()) {
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(clickListener,getItem(position))
     }
 }
 
 class NoteViewHolder(val binding : RecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root){
 
-    fun bind(n : Note)
+    fun bind(clickListener : NoteListener,n : Note)
     {
         binding.notes = n
+        binding.clickListener = clickListener
         binding.executePendingBindings()
     }
 
@@ -41,14 +42,10 @@ class NoteViewHolder(val binding : RecyclerviewItemBinding) : RecyclerView.ViewH
 }
 
 class NoteDiffCallback : DiffUtil.ItemCallback<Note>(){
-    override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+    override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean = oldItem.Id==newItem.Id
+    override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean = oldItem==newItem
+}
 
-        return oldItem.Id==newItem.Id
-    }
-
-    override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
-
-        return oldItem==newItem
-    }
-
+class NoteListener(val clickListener: (noteId : Int) -> Unit){
+    fun onClick(note : Note) = clickListener(note.Id)
 }

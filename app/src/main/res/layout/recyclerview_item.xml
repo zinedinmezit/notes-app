@@ -8,12 +8,16 @@
         <variable
             name="notes"
             type="com.example.notesapp.entities.Note" />
+        <variable
+            name="clickListener"
+            type="com.example.notesapp.adapters.NoteListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:onClick="@{() -> clickListener.onClick(notes)}"
         android:background="@color/cardBackground"
         android:minHeight="80dp">
 

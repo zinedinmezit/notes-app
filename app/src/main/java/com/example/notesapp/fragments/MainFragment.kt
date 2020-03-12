@@ -11,6 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.notesapp.R
 import com.example.notesapp.adapters.NoteAdapter
@@ -34,7 +36,9 @@ class MainFragment : Fragment() {
         val binding : FragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main,container,false)
 
 
-        val adapter = NoteAdapter(NoteListener { id -> Toast.makeText(context,"$id",Toast.LENGTH_SHORT).show() })
+
+        val adapter = NoteAdapter(NoteListener { id ->
+            this.findNavController().navigate(MainFragmentDirections.actionAppHomeToNoteDetailsFragment(id)) })
         binding.notesList.adapter = adapter
 
         model.allNotes.observe(viewLifecycleOwner, Observer {

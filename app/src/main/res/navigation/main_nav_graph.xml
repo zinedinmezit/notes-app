@@ -9,7 +9,11 @@
         android:id="@+id/appHome"
         tools:layout="@layout/fragment_main"
         android:name="com.example.notesapp.fragments.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_appHome_to_noteDetailsFragment"
+            app:destination="@id/noteDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calendar"
         tools:layout="@layout/fragment_calendar"
@@ -20,4 +24,13 @@
         tools:layout="@layout/fragment_create"
         android:name="com.example.notesapp.fragments.CreateNoteFragment"
         android:label="CreateNoteFragment" />
+    <fragment
+        android:id="@+id/noteDetailsFragment"
+        tools:layout="@layout/fragment_notedetails"
+        android:name="com.example.notesapp.fragments.NoteDetailsFragment"
+        android:label="NoteDetailsFragment" >
+        <argument
+            android:name="noteId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

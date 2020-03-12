@@ -29,6 +29,7 @@ class NoteViewHolder(val binding : RecyclerviewItemBinding) : RecyclerView.ViewH
         binding.notes = n
         binding.clickListener = clickListener
         binding.executePendingBindings()
+
     }
 
     companion object {

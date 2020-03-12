@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 29
@@ -41,15 +42,13 @@ android {
 }
 
 
-
 dependencies {
     //Navigation component version
-    def nav_version = "2.3.0-alpha02"
+    def nav_version = "2.3.0-alpha03"
     //Room persistence library version
     def room_version = "2.2.4"
     //Lifecycle component version
     def lifecycle_version = "2.2.0"
-
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -80,30 +79,19 @@ dependencies {
     //kapt("groupId:artifactId:version")
 
     //Lifecycle components [implementation]
-        //ViewModel
-        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-        //LiveData
-        implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-        //Lifecycle only
-        implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
-        //Saved state module for ViewModel
-        implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-        implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    //ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    //LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    //Lifecycle only
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    //Saved state module for ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
 
     //Kotlin Coroutines [implementation]
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3'
-
-    
-
-
-
-
-
-
-
-
-
 
 
 }

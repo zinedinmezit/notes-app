@@ -1,28 +1,47 @@
 package com.example.notesapp.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.get
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentNotedetailsBinding
+import com.example.notesapp.factories.NoteDetailsFactory
+import com.example.notesapp.viewmodels.NoteDetailsViewModel
 
 /**
  * A simple [Fragment] subclass.
  */
 class NoteDetailsFragment : Fragment() {
 
+    private lateinit var viewModel : NoteDetailsViewModel
+    private lateinit var viewModelFactory : NoteDetailsFactory
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        val args = NoteDetailsFragmentArgs.fromBundle(arguments!!)
+
         val binding : FragmentNotedetailsBinding =
             DataBindingUtil
             .inflate(inflater,R.layout.fragment_notedetails,container,false)
+
+        viewModelFactory = NoteDetailsFactory(args.noteId,activity?.application!!)
+        viewModel = ViewModelProvider(this,viewModelFactory).get(NoteDetailsViewModel::class.java)
+        binding.lifecycleOwner = this
+        Log.i("NOTE_INFO","VALUES : ${viewModel.note.value}")
+
+        binding.details = viewModel
 
         return binding.root
 

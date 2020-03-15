@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.notesapp.database.NoteRoomDatabase
 import com.example.notesapp.entities.Note
+import com.example.notesapp.fragments.DatePickerFragment
 import com.example.notesapp.repositories.NoteRepository
 import kotlinx.coroutines.launch
 
@@ -23,5 +24,7 @@ class CreateViewModel(application: Application): AndroidViewModel(application) {
             repository.insert(note)
         }
     }
+
+
 
 }

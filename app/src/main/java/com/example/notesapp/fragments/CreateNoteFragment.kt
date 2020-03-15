@@ -1,10 +1,12 @@
 package com.example.notesapp.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.notesapp.R
@@ -38,9 +40,13 @@ class CreateNoteFragment : Fragment() {
             {
                 model.insertNote(Note())
             }
+        }
 
+        binding.button44.setOnClickListener{
+
+            val newFragment = DatePickerFragment()
+            newFragment.show(parentFragmentManager,"datePicker")
         }
          return binding.root
     }
-
 }

@@ -3,6 +3,7 @@ package com.example.notesapp.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "note_table")
 data class Note(
@@ -12,5 +13,8 @@ data class Note(
     val Title : String = "Default heading",
     @ColumnInfo(name = "Details")
     val Details : String? = "Default details",
+    @ColumnInfo(name = "Priority")
     val Priority : Int = 1
+
+
 )

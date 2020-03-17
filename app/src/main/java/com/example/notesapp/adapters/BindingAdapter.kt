@@ -1,8 +1,11 @@
 package com.example.notesapp.adapters
 
+import android.annotation.SuppressLint
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.notesapp.entities.Note
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingAdapter("TitleSetter")
 fun TextView.setNoteTitle(item : Note?){
@@ -25,5 +28,15 @@ fun TextView.setNotePriority(item : Note?){
 
     item?.let {
         text = item.Priority.toString()
+    }
+}
+
+@SuppressLint("SimpleDateFormat")
+@BindingAdapter("DateSetter")
+fun TextView.setNoteDate(item : Note?){
+    item?.let {
+        val date = Date(item.Date!!)
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        text = format.format(date)
     }
 }

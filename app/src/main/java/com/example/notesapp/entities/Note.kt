@@ -14,7 +14,9 @@ data class Note(
     @ColumnInfo(name = "Details")
     val Details : String? = "Default details",
     @ColumnInfo(name = "Priority")
-    val Priority : Int = 1
-
-
+    val Priority : Int = 1,
+    @ColumnInfo(name = "Date")
+    val Date : Long?,
+    @ColumnInfo(name = "Time")
+    val Time : Long?
 )

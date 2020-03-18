@@ -86,8 +86,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:clickable="false"
             android:ems="10"
-            android:inputType="time"
+            android:focusable="false"
+            android:focusableInTouchMode="false"            android:inputType="time"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="@+id/imageView3" />

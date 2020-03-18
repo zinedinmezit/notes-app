@@ -40,3 +40,13 @@ fun TextView.setNoteDate(item : Note?){
         text = format.format(date)
     }
 }
+
+@SuppressLint("SimpleDateFormat")
+@BindingAdapter("TimeSetter")
+fun TextView.setTime(item : Note?){
+    item?.let {
+        val time = Date(item.Time!!)
+        val format = SimpleDateFormat("HH:mm")
+        text = format.format(time)
+    }
+}

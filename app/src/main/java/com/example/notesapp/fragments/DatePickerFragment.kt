@@ -25,14 +25,11 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
      var month : Int = 1
      var year : Int = 2001
 
-
-
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         ctx = context
-
     }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)

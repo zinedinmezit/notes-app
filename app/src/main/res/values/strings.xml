@@ -3,7 +3,9 @@
     <string name="home_title">Home</string>
     <string name="create_title">New note</string>
     <string name="calendar_title">Calendar</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="headingHint">Place for your heading</string>
+    <string name="detailsHint">Add details to your note</string>
+    <string name="dateHint">On what date it occurs</string>
+    <string name="timeHint">On what time it occurs</string>
+    <string name="priorityHint">Priority number</string>
 </resources>

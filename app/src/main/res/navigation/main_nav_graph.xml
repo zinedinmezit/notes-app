@@ -23,7 +23,11 @@
         android:id="@+id/createNote"
         tools:layout="@layout/fragment_create"
         android:name="com.example.notesapp.fragments.CreateNoteFragment"
-        android:label="CreateNoteFragment" />
+        android:label="CreateNoteFragment" >
+        <action
+            android:id="@+id/action_createNote_to_appHome"
+            app:destination="@id/appHome" />
+    </fragment>
     <fragment
         android:id="@+id/noteDetailsFragment"
         tools:layout="@layout/fragment_notedetails"

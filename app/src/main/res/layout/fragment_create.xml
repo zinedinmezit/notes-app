@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Heading 1" />
+            android:hint="@string/headingHint" />
 
         <EditText
             android:id="@+id/detailsInput"
@@ -44,6 +44,7 @@
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:hint="@string/detailsHint"
             app:layout_constraintTop_toBottomOf="@+id/headingInput" />
 
         <ImageView
@@ -74,6 +75,7 @@
             android:clickable="false"
             android:ems="10"
             android:focusable="false"
+            android:hint="@string/dateHint"
             android:focusableInTouchMode="false"
             android:inputType="date"
             android:longClickable="false"
@@ -89,7 +91,9 @@
             android:clickable="false"
             android:ems="10"
             android:focusable="false"
-            android:focusableInTouchMode="false"            android:inputType="time"
+            android:focusableInTouchMode="false"
+            android:hint="@string/timeHint"
+            android:inputType="time"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="@+id/imageView3" />
@@ -111,6 +115,7 @@
             android:layout_marginStart="32dp"
             android:ems="10"
             android:inputType="number"
+            android:hint="@string/priorityHint"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toTopOf="@+id/imageView5" />

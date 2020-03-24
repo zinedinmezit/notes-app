@@ -6,4 +6,6 @@
     <color name="cardBackground">#e3e3e3</color>
     <color name="cardText">#000</color>
     <color name="whiteText">#fff</color>
+    <color name="RedWarning">#FF0000</color>
+    <color name="GreenSuccess">#2FF303</color>
 </resources>

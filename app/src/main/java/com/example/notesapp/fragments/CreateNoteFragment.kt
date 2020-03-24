@@ -9,8 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentCreateBinding
 import com.example.notesapp.entities.Note
@@ -37,20 +40,43 @@ class CreateNoteFragment : Fragment() {
         val binding : FragmentCreateBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_create,container,false)
 
         binding.buttonSubmit.setOnClickListener {
+
             val heading = binding.headingInput.text.toString()
             val details = binding.detailsInput.text.toString()
-            val priority = binding.priorityInput.text.toString().toInt()
+            val _priority = binding.priorityInput.text.toString()
+            val dateString = binding.dateInput.text.toString()
+            val timeString = binding.timeInput.text.toString()
 
             val dateFormat = SimpleDateFormat("dd/MM/yyyy")
             val timeFormat = SimpleDateFormat("hh:mm")
-            val dateString = binding.dateInput.text.toString()
-            val timeString = binding.timeInput.text.toString()
-            val date : Long = dateFormat.parse(dateString)?.time ?: Calendar.getInstance().timeInMillis
-            val time : Long = timeFormat.parse(timeString)?.time ?: Calendar.getInstance().time.time
 
-            if(!details.isBlank() && !heading.isBlank()) {
-                val note: Note = Note(Details = details, Title = heading,Priority = priority,Time = time,Date = date)
+
+            var date : Long? = Calendar.getInstance().timeInMillis
+            var time : Long? = Calendar.getInstance().timeInMillis
+
+            if(dateString.isNotBlank())
+            date = dateFormat.parse(dateString)?.time
+
+            if(timeString.isNotBlank())
+            time = timeFormat.parse(timeString)?.time
+
+            if(!details.isBlank() && !heading.isBlank() && !_priority.isBlank()){
+
+                val priorityInt = _priority.toInt()
+                val note = Note(Details = details, Title = heading,Priority = priorityInt,Time = time,Date = date)
                 model.insertNote(note)
+                this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
+            }
+            else
+            {
+                val note = Note(
+                    Title = "Empty heading",
+                    Details = "...",
+                    Priority = 0,
+                    Time = Calendar.getInstance().timeInMillis,
+                    Date = Calendar.getInstance().timeInMillis)
+                model.insertNote(note)
+                this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
             }
         }
 

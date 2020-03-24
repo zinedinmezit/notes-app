@@ -18,5 +18,8 @@ data class Note(
     @ColumnInfo(name = "Date")
     val Date : Long?,
     @ColumnInfo(name = "Time")
-    val Time : Long?
+    val Time : Long?,
+    @ColumnInfo(name = "Color")
+    val Color : Int?
+
 )

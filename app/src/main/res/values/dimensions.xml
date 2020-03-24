@@ -5,4 +5,6 @@
     <dimen name="navigation_bottom_height">55dp</dimen>
     <dimen name ="note_details_input_height">200dp</dimen>
     <dimen name="note_heading_input_height">60dp</dimen>
+    <dimen name="note_colorField_height">30dp</dimen>
+    <dimen name="note_colorField_width">100dp</dimen>
 </resources>

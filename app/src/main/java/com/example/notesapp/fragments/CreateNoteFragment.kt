@@ -1,6 +1,7 @@
 package com.example.notesapp.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.Color.*
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,6 +15,8 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.color.colorChooser
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentCreateBinding
 import com.example.notesapp.entities.Note
@@ -29,7 +32,7 @@ import java.util.*
 class CreateNoteFragment : Fragment() {
 
     private val model : CreateViewModel by activityViewModels()
-
+    val colors = intArrayOf(RED, GREEN, BLUE)
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
@@ -46,6 +49,8 @@ class CreateNoteFragment : Fragment() {
             val _priority = binding.priorityInput.text.toString()
             val dateString = binding.dateInput.text.toString()
             val timeString = binding.timeInput.text.toString()
+            val noteColor = binding.colorTextView.currentTextColor
+
 
             val dateFormat = SimpleDateFormat("dd/MM/yyyy")
             val timeFormat = SimpleDateFormat("hh:mm")
@@ -63,7 +68,7 @@ class CreateNoteFragment : Fragment() {
             if(!details.isBlank() && !heading.isBlank() && !_priority.isBlank()){
 
                 val priorityInt = _priority.toInt()
-                val note = Note(Details = details, Title = heading,Priority = priorityInt,Time = time,Date = date)
+                val note = Note(Details = details, Title = heading,Priority = priorityInt,Time = time,Date = date,Color = noteColor)
                 model.insertNote(note)
                 this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
             }
@@ -74,7 +79,8 @@ class CreateNoteFragment : Fragment() {
                     Details = "...",
                     Priority = 0,
                     Time = Calendar.getInstance().timeInMillis,
-                    Date = Calendar.getInstance().timeInMillis)
+                    Date = Calendar.getInstance().timeInMillis,
+                    Color = noteColor)
                 model.insertNote(note)
                 this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
             }
@@ -88,6 +94,20 @@ class CreateNoteFragment : Fragment() {
         binding.timeInput.setOnClickListener{
             val newFragment = TimePickerFragment()
             newFragment.show(parentFragmentManager,"timePicker")
+        }
+
+        binding.colorButton.setOnClickListener {
+
+            MaterialDialog(context!!).show {
+                title(R.string.colorPickerHeading)
+                colorChooser(colors){ dialog, color ->
+
+                    binding.colorTextView.setBackgroundColor(color)
+                    binding.colorTextView.setTextColor(color)
+
+                }
+            }
+
         }
 
          return binding.root

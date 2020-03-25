@@ -4,10 +4,10 @@
     <string name="create_title">New note</string>
     <string name="calendar_title">Calendar</string>
     <string name="headingHint">Place for your heading</string>
-    <string name="detailsHint">Add details to your note</string>
+    <string name="detailsHint">Add details to note</string>
     <string name="dateHint">On what date it occurs</string>
     <string name="timeHint">On what time it occurs</string>
     <string name="priorityHint">Priority number</string>
-    <string name="colorPickerHeading">Choose note color</string>
+    <string name="colorPickerHeading">Note color</string>
     <string name="empty_string"> </string>
 </resources>

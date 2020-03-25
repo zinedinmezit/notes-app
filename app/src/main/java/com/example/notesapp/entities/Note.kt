@@ -20,6 +20,10 @@ data class Note(
     @ColumnInfo(name = "Time")
     val Time : Long?,
     @ColumnInfo(name = "Color")
-    val Color : Int?
+    val Color : Int?,
+    @ColumnInfo(name = "DateCreated")
+    val DateCreated : Long?,
+    @ColumnInfo(name = "TimeCreated")
+    val TimeCreated : Long?
 
 )

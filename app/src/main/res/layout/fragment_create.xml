@@ -41,10 +41,10 @@
             android:layout_height="@dimen/note_details_input_height"
             android:ems="10"
             android:gravity="start|top"
+            android:hint="@string/detailsHint"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:hint="@string/detailsHint"
             app:layout_constraintTop_toBottomOf="@+id/headingInput" />
 
         <ImageView
@@ -75,8 +75,8 @@
             android:clickable="false"
             android:ems="10"
             android:focusable="false"
-            android:hint="@string/dateHint"
             android:focusableInTouchMode="false"
+            android:hint="@string/dateHint"
             android:inputType="date"
             android:longClickable="false"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -130,26 +130,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/colorButton"
-            android:layout_width="92dp"
-            android:layout_height="49dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailsInput" />
-
         <TextView
             android:id="@+id/colorTextView"
             android:layout_width="@dimen/note_colorField_width"
             android:layout_height="@dimen/note_colorField_height"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
             android:background="@android:color/black"
             android:text="@string/empty_string"
+            android:textColor="@color/cardText"
+            app:layout_constraintBottom_toBottomOf="@+id/timeInput"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/colorButton" />
+            app:layout_constraintStart_toEndOf="@+id/timeInput"
+            app:layout_constraintTop_toTopOf="@+id/timeInput" />
+
+        <TextView
+            android:id="@+id/colorLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/colorPickerHeading"
+            android:textColor="@color/cardText"
+            app:layout_constraintBottom_toTopOf="@+id/colorTextView"
+            app:layout_constraintStart_toStartOf="@+id/colorTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

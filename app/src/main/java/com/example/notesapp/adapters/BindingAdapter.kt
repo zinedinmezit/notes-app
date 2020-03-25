@@ -46,7 +46,27 @@ fun TextView.setNoteDate(item : Note?){
 fun TextView.setTime(item : Note?){
     item?.let {
         val time = Date(item.Time!!)
-        val format = SimpleDateFormat("HH:mm")
+        val format = SimpleDateFormat("HH:mm",Locale.UK)
+        text = format.format(time)
+    }
+}
+
+@SuppressLint("SimpleDateFormat")
+@BindingAdapter("DateCreatedSetter")
+fun TextView.setCreatedNoteDate(item : Note?){
+    item?.let {
+        val date = Date(item.DateCreated!!)
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        text = format.format(date)
+    }
+}
+
+@SuppressLint("SimpleDateFormat")
+@BindingAdapter("TimeCreatedSetter")
+fun TextView.setCreatedTime(item : Note?){
+    item?.let {
+        val time = Date(item.TimeCreated!!)
+        val format = SimpleDateFormat("HH:mm",Locale.UK)
         text = format.format(time)
     }
 }

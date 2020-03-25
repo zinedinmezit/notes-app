@@ -53,7 +53,7 @@ class CreateNoteFragment : Fragment() {
 
 
             val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-            val timeFormat = SimpleDateFormat("hh:mm")
+            val timeFormat = SimpleDateFormat("HH:mm",Locale.UK)
 
 
             var date : Long? = Calendar.getInstance().timeInMillis
@@ -68,7 +68,14 @@ class CreateNoteFragment : Fragment() {
             if(!details.isBlank() && !heading.isBlank() && !_priority.isBlank()){
 
                 val priorityInt = _priority.toInt()
-                val note = Note(Details = details, Title = heading,Priority = priorityInt,Time = time,Date = date,Color = noteColor)
+                val note = Note(Details = details,
+                                Title = heading,
+                                Priority = priorityInt,
+                                Time = time,
+                                Date = date,
+                                Color = noteColor,
+                                DateCreated = Calendar.getInstance().timeInMillis,
+                                TimeCreated = Calendar.getInstance().timeInMillis)
                 model.insertNote(note)
                 this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
             }
@@ -80,6 +87,8 @@ class CreateNoteFragment : Fragment() {
                     Priority = 0,
                     Time = Calendar.getInstance().timeInMillis,
                     Date = Calendar.getInstance().timeInMillis,
+                    TimeCreated = Calendar.getInstance().timeInMillis,
+                    DateCreated = Calendar.getInstance().timeInMillis,
                     Color = noteColor)
                 model.insertNote(note)
                 this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
@@ -96,7 +105,7 @@ class CreateNoteFragment : Fragment() {
             newFragment.show(parentFragmentManager,"timePicker")
         }
 
-        binding.colorButton.setOnClickListener {
+        binding.colorTextView.setOnClickListener {
 
             MaterialDialog(context!!).show {
                 title(R.string.colorPickerHeading)

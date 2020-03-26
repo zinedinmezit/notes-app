@@ -10,4 +10,6 @@
     <string name="priorityHint">Priority number</string>
     <string name="colorPickerHeading">Note color</string>
     <string name="empty_string"> </string>
+    <string name="date_when_label">DATE</string>
+    <string name="time_when_label">TIME</string>
 </resources>

@@ -7,4 +7,6 @@
     <dimen name="note_heading_input_height">60dp</dimen>
     <dimen name="note_colorField_height">30dp</dimen>
     <dimen name="note_colorField_width">100dp</dimen>
+    <dimen name="note_item_heading_size">25sp</dimen>
+    <dimen name="note_item_details_size">18sp</dimen>
 </resources>

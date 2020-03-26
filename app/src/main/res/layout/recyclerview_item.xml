@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/note_heading"
-            android:layout_width="356dp"
+            android:layout_width="0dp"
             android:layout_height="29dp"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/open_sans_bold"

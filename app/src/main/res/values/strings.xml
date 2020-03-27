@@ -12,4 +12,5 @@
     <string name="empty_string"> </string>
     <string name="date_when_label">DATE</string>
     <string name="time_when_label">TIME</string>
+    <string name="datetime">DateTime</string>
 </resources>

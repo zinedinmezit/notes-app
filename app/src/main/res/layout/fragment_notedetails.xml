@@ -15,6 +15,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/note_item_background"
         android:layout_height="match_parent">
 
         <TextView
@@ -31,14 +32,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Just a random heading really" />
+            tools:text="Just a randomdasdsadas heading really" />
 
         <TextView
             android:id="@+id/itemDetails"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="30dp"
 
             android:layout_marginEnd="8dp"
             android:textColor="@color/cardText"
@@ -49,62 +50,80 @@
             app:layout_constraintTop_toBottomOf="@+id/itemHeading"
             tools:text="This is some ra testing purposes only so please have some understanding otherwise I will be pissed of" />
 
-        <TextView
-            android:id="@+id/itemDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/cardText"
-            android:textSize="@dimen/note_item_details_size"
-            android:layout_marginTop="80dp"
-            app:DateSetter="@{details.note}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemDetails"
-            tools:text="27.11.1991" />
-
-        <TextView
-            android:id="@+id/itemTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:textColor="@color/cardText"
-            android:textSize="@dimen/note_item_details_size"
-            app:TimeSetter="@{details.note}"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:background="@color/note_item_date_time"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toBottomOf="@+id/itemDetails"
-            tools:text="12:12" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemDetails">
 
-        <TextView
-            android:id="@+id/date_when_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/date_when_label"
-            android:textColor="@color/cardText"
-            android:textSize="@dimen/note_item_details_size"
-            app:layout_constraintBottom_toTopOf="@+id/itemDate"
-            app:layout_constraintEnd_toEndOf="@+id/itemDate"
-            app:layout_constraintStart_toStartOf="@+id/itemDate" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_timetable"
+                android:contentDescription="@string/datetime" />
 
-        <TextView
-            android:id="@+id/time_when_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/cardText"
-            android:textSize="@dimen/note_item_details_size"
-            android:layout_marginBottom="8dp"
-            android:text="@string/time_when_label"
-            app:layout_constraintBottom_toTopOf="@+id/itemTime"
-            app:layout_constraintEnd_toEndOf="@+id/itemTime"
-            app:layout_constraintStart_toStartOf="@+id/itemTime" />
+            <TextView
+                android:id="@+id/time_when_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/time_when_label"
+                android:textAlignment="center"
+                android:textColor="@color/cardText"
+                android:textSize="@dimen/note_item_details_size"
+                app:layout_constraintBottom_toTopOf="@+id/itemTime"
+                app:layout_constraintEnd_toEndOf="@+id/itemTime"
+                app:layout_constraintStart_toStartOf="@+id/itemTime" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="202dp" />
+            <TextView
+                android:id="@+id/itemTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:textAlignment="center"
+                android:textColor="@color/cardText"
+                android:textSize="@dimen/note_item_details_size"
+                app:TimeSetter="@{details.note}"
+                app:layout_constraintEnd_toStartOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="12:12" />
+
+            <TextView
+                android:id="@+id/date_when_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/date_when_label"
+                android:textAlignment="center"
+                android:textColor="@color/cardText"
+                android:textSize="@dimen/note_item_details_size"
+                app:layout_constraintBottom_toTopOf="@+id/itemDate"
+                app:layout_constraintEnd_toEndOf="@+id/itemDate"
+                app:layout_constraintStart_toStartOf="@+id/itemDate" />
+
+            <TextView
+                android:id="@+id/itemDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:textAlignment="center"
+                android:textColor="@color/cardText"
+                android:textSize="@dimen/note_item_details_size"
+                app:DateSetter="@{details.note}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="27.11.1991" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

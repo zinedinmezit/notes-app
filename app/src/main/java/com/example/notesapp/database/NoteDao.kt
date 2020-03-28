@@ -10,7 +10,7 @@ import com.example.notesapp.entities.Note
 @Dao
 interface NoteDao {
 
-    @Query("SELECT * FROM note_table ORDER BY Priority DESC")
+    @Query("SELECT * FROM note_table ORDER BY Priority ASC")
      fun getNotesByPriority() : LiveData<List<Note>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

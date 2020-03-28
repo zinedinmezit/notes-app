@@ -11,7 +11,13 @@ import java.util.*
 fun TextView.setNoteTitle(item : Note?){
 
     item?.let {
-        text = item.Title
+        text = if(item.Title.isBlank())
+        {
+            "not defined"
+        }
+        else{
+            item.Title
+        }
     }
 }
 
@@ -19,7 +25,8 @@ fun TextView.setNoteTitle(item : Note?){
 fun TextView.setNoteDetails(item : Note?){
 
     item?.let {
-        text = item.Details
+
+        text = item.Details ?: " "
     }
 }
 
@@ -35,9 +42,13 @@ fun TextView.setNotePriority(item : Note?){
 @BindingAdapter("DateSetter")
 fun TextView.setNoteDate(item : Note?){
     item?.let {
-        val date = Date(item.Date!!)
-        val format = SimpleDateFormat("dd/MM/yyyy")
-        text = format.format(date)
+        text = if(item.Date != null) {
+            val date = Date(item.Date)
+            val format = SimpleDateFormat("dd/MM/yyyy")
+            format.format(date)
+        } else{
+            "not defined"
+        }
     }
 }
 
@@ -45,9 +56,15 @@ fun TextView.setNoteDate(item : Note?){
 @BindingAdapter("TimeSetter")
 fun TextView.setTime(item : Note?){
     item?.let {
-        val time = Date(item.Time!!)
-        val format = SimpleDateFormat("HH:mm",Locale.UK)
-        text = format.format(time)
+        text = if(item.Time != null) {
+            val time = Date(item.Time)
+            val format = SimpleDateFormat("HH:mm", Locale.UK)
+            format.format(time)
+        }
+        else
+        {
+            "not defined"
+        }
     }
 }
 

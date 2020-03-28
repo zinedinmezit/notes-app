@@ -44,55 +44,57 @@ class CreateNoteFragment : Fragment() {
 
         binding.buttonSubmit.setOnClickListener {
 
-            val heading = binding.headingInput.text.toString()
-            val details = binding.detailsInput.text.toString()
-            val _priority = binding.priorityInput.text.toString()
-            val dateString = binding.dateInput.text.toString()
-            val timeString = binding.timeInput.text.toString()
-            val noteColor = binding.colorTextView.currentTextColor
+            val heading_input = binding.headingInput.text.toString()
+            val details_input = binding.detailsInput.text.toString()
+            val priority_input = binding.priorityInput.text.toString()
+            val dateString_input = binding.dateInput.text.toString()
+            val timeString_input = binding.timeInput.text.toString()
+            val noteColor_input = binding.colorTextView.currentTextColor
 
 
             val dateFormat = SimpleDateFormat("dd/MM/yyyy")
             val timeFormat = SimpleDateFormat("HH:mm",Locale.UK)
 
 
-            var date : Long? = Calendar.getInstance().timeInMillis
-            var time : Long? = Calendar.getInstance().timeInMillis
+            var heading : String = " "
+            var details : String? = null
+            var priority : Int = 9
+            var date : Long? = null
+            var time : Long? = null
 
-            if(dateString.isNotBlank())
-            date = dateFormat.parse(dateString)?.time
+            if(dateString_input.isNotBlank())
+            date = dateFormat.parse(dateString_input)?.time
 
-            if(timeString.isNotBlank())
-            time = timeFormat.parse(timeString)?.time
+            if(timeString_input.isNotBlank())
+            time = timeFormat.parse(timeString_input)?.time
 
-            if(!details.isBlank() && !heading.isBlank() && !_priority.isBlank()){
+            if(details_input.isNotBlank())
+                details = details_input
+            if(priority_input.isNotBlank())
+                priority = priority_input.toInt()
 
-                val priorityInt = _priority.toInt()
+
+
+            if(heading_input.isNotBlank()){
+
+                heading = heading_input
+
                 val note = Note(Details = details,
-                                Title = heading,
-                                Priority = priorityInt,
-                                Time = time,
-                                Date = date,
-                                Color = noteColor,
-                                DateCreated = Calendar.getInstance().timeInMillis,
-                                TimeCreated = Calendar.getInstance().timeInMillis)
-                model.insertNote(note)
-                this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
-            }
-            else
-            {
-                val note = Note(
-                    Title = "Empty heading",
-                    Details = "...",
-                    Priority = 0,
-                    Time = Calendar.getInstance().timeInMillis,
-                    Date = Calendar.getInstance().timeInMillis,
-                    TimeCreated = Calendar.getInstance().timeInMillis,
+                    Title = heading,
+                    Priority = priority,
+                    Time = time,
+                    Date = date,
+                    Color = noteColor_input,
                     DateCreated = Calendar.getInstance().timeInMillis,
-                    Color = noteColor)
+                    TimeCreated = Calendar.getInstance().timeInMillis)
                 model.insertNote(note)
                 this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
             }
+            else{
+                Toast.makeText(context,"Heading can't be empty",Toast.LENGTH_SHORT).show()
+            }
+
+
         }
 
         binding.dateInput.setOnClickListener {
@@ -113,10 +115,8 @@ class CreateNoteFragment : Fragment() {
 
                     binding.colorTextView.setBackgroundColor(color)
                     binding.colorTextView.setTextColor(color)
-
                 }
             }
-
         }
 
          return binding.root

@@ -15,10 +15,6 @@ import com.example.notesapp.adapters.NoteListener
 import com.example.notesapp.databinding.FragmentMainBinding
 import com.example.notesapp.viewmodels.MainViewModel
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class MainFragment : Fragment() {
 
     private val model : MainViewModel by activityViewModels()
@@ -28,14 +24,11 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
-
         val binding : FragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main,container,false)
-
-
 
         val adapter = NoteAdapter(NoteListener { id ->
             this.findNavController().navigate(MainFragmentDirections.actionAppHomeToNoteDetailsFragment(id)) })
+
         binding.notesList.adapter = adapter
 
         model.allNotes.observe(viewLifecycleOwner, Observer {
@@ -44,9 +37,7 @@ class MainFragment : Fragment() {
             }
         })
 
-
-
-        return binding.root
+            return binding.root
         }
     }
 

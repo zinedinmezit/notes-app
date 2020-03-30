@@ -14,8 +14,6 @@ abstract class NoteRoomDatabase : RoomDatabase()  {
 
     abstract fun noteDao (): NoteDao
 
-
-
     companion object{
         private val MIGRATION_1_2 : Migration = object : Migration(1,2){
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -42,11 +40,12 @@ abstract class NoteRoomDatabase : RoomDatabase()  {
         fun getDatabase(context : Context): NoteRoomDatabase{
 
             val tempInstance = INSTANCE
+
             if(tempInstance != null)
-            {
                 return tempInstance
-            }
+
             synchronized(this){
+
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     NoteRoomDatabase::class.java,
@@ -55,9 +54,6 @@ abstract class NoteRoomDatabase : RoomDatabase()  {
                 INSTANCE = instance
                 return instance
             }
-
         }
-
-
     }
 }

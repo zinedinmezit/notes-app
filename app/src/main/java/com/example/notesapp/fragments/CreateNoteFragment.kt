@@ -51,10 +51,8 @@ class CreateNoteFragment : Fragment() {
             val timeString_input = binding.timeInput.text.toString()
             val noteColor_input = binding.colorTextView.currentTextColor
 
-
             val dateFormat = SimpleDateFormat("dd/MM/yyyy")
             val timeFormat = SimpleDateFormat("HH:mm",Locale.UK)
-
 
             var heading : String = " "
             var details : String? = null
@@ -73,8 +71,6 @@ class CreateNoteFragment : Fragment() {
             if(priority_input.isNotBlank())
                 priority = priority_input.toInt()
 
-
-
             if(heading_input.isNotBlank()){
 
                 heading = heading_input
@@ -90,11 +86,7 @@ class CreateNoteFragment : Fragment() {
                 model.insertNote(note)
                 this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
             }
-            else{
-                Toast.makeText(context,"Heading can't be empty",Toast.LENGTH_SHORT).show()
-            }
-
-
+            else Toast.makeText(context,"Heading can't be empty",Toast.LENGTH_SHORT).show()
         }
 
         binding.dateInput.setOnClickListener {
@@ -118,7 +110,6 @@ class CreateNoteFragment : Fragment() {
                 }
             }
         }
-
          return binding.root
     }
 }

@@ -13,4 +13,7 @@
     <string name="date_when_label">DATE</string>
     <string name="time_when_label">TIME</string>
     <string name="datetime">DateTime</string>
+    <string name="note_notification_channel_id" translatable="false">note_channel</string>
+    <string name="note_notification_channel_name" translatable="false">Reminder</string>
+
 </resources>

@@ -1,5 +1,9 @@
 package com.example.notesapp.fragments
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -39,8 +43,33 @@ class NoteDetailsFragment : Fragment() {
 
         binding.details = viewModel
 
+        createChannel(
+            getString(R.string.note_notification_channel_id),
+            getString(R.string.note_notification_channel_name)
+        )
+
         return binding.root
 
     }
 
+    private fun createChannel(channelId : String, channelName : String) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_LOW
+            )
+
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.RED
+            notificationChannel.enableVibration(true)
+            notificationChannel.description = "You got things to do"
+
+            val notificationManager = requireActivity().getSystemService(
+                NotificationManager::class.java
+            )
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+    }
 }

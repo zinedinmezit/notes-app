@@ -31,11 +31,13 @@ class MainFragment : Fragment() {
 
         binding.notesList.adapter = adapter
 
-        model.allNotes.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.submitList(it)
-            }
-        })
+        model.allNotes.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    adapter.submitList(it)
+                 }
+            })
 
             return binding.root
         }

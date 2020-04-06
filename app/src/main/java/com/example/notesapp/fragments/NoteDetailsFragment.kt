@@ -39,37 +39,13 @@ class NoteDetailsFragment : Fragment() {
         viewModelFactory = NoteDetailsFactory(args.noteId,activity?.application!!)
         viewModel = ViewModelProvider(this,viewModelFactory).get(NoteDetailsViewModel::class.java)
         binding.lifecycleOwner = this
-        Log.i("NOTE_INFO","VALUES : ${viewModel.note.value}")
 
         binding.details = viewModel
 
-        createChannel(
-            getString(R.string.note_notification_channel_id),
-            getString(R.string.note_notification_channel_name)
-        )
+
 
         return binding.root
-
     }
 
-    private fun createChannel(channelId : String, channelName : String) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel(
-                channelId,
-                channelName,
-                NotificationManager.IMPORTANCE_LOW
-            )
-
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.RED
-            notificationChannel.enableVibration(true)
-            notificationChannel.description = "You got things to do"
-
-            val notificationManager = requireActivity().getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(notificationChannel)
-        }
-    }
 }

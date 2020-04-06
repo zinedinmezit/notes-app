@@ -24,12 +24,7 @@ class NoteDetailsViewModel(noteId : Int,application: Application) : ViewModel() 
         repository = NoteRepository(noteDao)
             note = repository.getNote(noteId)
 
-        val notificationManager = ContextCompat.getSystemService(
-            application,
-            NotificationManager::class.java
-        ) as NotificationManager
 
-        notificationManager.sendNotification("aaaa",application)
 
     }
 

@@ -41,10 +41,12 @@ class NoteViewHolder(val binding : RecyclerviewItemBinding) : RecyclerView.ViewH
     }
 }
 
+
 class NoteDiffCallback : DiffUtil.ItemCallback<Note>(){
     override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean = oldItem.Id==newItem.Id
     override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean = oldItem==newItem
 }
+
 
 class NoteListener(val clickListener: (noteId : Int) -> Unit){
     fun onClick(note : Note) = clickListener(note.Id)

@@ -1,8 +1,18 @@
 package com.example.notesapp.fragments
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Context.ALARM_SERVICE
+import android.content.Intent
+import android.graphics.Color
 import android.graphics.Color.*
+import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +21,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -20,6 +31,7 @@ import com.afollestad.materialdialogs.color.colorChooser
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentCreateBinding
 import com.example.notesapp.entities.Note
+import com.example.notesapp.utils.NotificationBroadcast
 import com.example.notesapp.viewmodels.CreateViewModel
 import kotlinx.android.synthetic.main.fragment_create.*
 import java.sql.Time
@@ -33,6 +45,7 @@ class CreateNoteFragment : Fragment() {
 
     private val model : CreateViewModel by activityViewModels()
     val colors = intArrayOf(RED, GREEN, BLUE)
+   private val NOTE_LOW_PRIORITY : Int = 9
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
@@ -41,6 +54,11 @@ class CreateNoteFragment : Fragment() {
     ): View? {
 
         val binding : FragmentCreateBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_create,container,false)
+
+        createChannel(
+            getString(R.string.note_notification_channel_id),
+            getString(R.string.note_notification_channel_name)
+        )
 
         binding.buttonSubmit.setOnClickListener {
 
@@ -56,15 +74,19 @@ class CreateNoteFragment : Fragment() {
 
             var heading : String = " "
             var details : String? = null
-            var priority : Int = 9
+            var priority : Int = NOTE_LOW_PRIORITY
             var date : Long? = null
             var time : Long? = null
+            var dateTime : Long? = null
 
-            if(dateString_input.isNotBlank())
-            date = dateFormat.parse(dateString_input)?.time
+            if(dateString_input.isNotBlank() && timeString_input.isNotBlank()) {
+                time = timeFormat.parse(timeString_input)?.time
+                date = dateFormat.parse(dateString_input)?.time
+                val dateTimeString = "$dateString_input $timeString_input"
+                val format = SimpleDateFormat("dd/MM/yyyy HH:mm",Locale.UK)
+                dateTime = format.parse(dateTimeString)!!.time
+            }
 
-            if(timeString_input.isNotBlank())
-            time = timeFormat.parse(timeString_input)?.time
 
             if(details_input.isNotBlank())
                 details = details_input
@@ -84,6 +106,22 @@ class CreateNoteFragment : Fragment() {
                     DateCreated = Calendar.getInstance().timeInMillis,
                     TimeCreated = Calendar.getInstance().timeInMillis)
                 model.insertNote(note)
+
+                if(dateTime != null) {
+
+                    val alarmManager =
+                        context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    val notifyIntent =
+                        Intent(context, NotificationBroadcast::class.java).let { intent ->
+                            PendingIntent.getBroadcast(context, 1, intent, 0)
+                        }
+
+                    alarmManager.set(
+                                AlarmManager.RTC_WAKEUP,
+                                System.currentTimeMillis() + (dateTime-System.currentTimeMillis()),
+                                notifyIntent)
+                }
+
                 this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
             }
             else Toast.makeText(context,"Heading can't be empty",Toast.LENGTH_SHORT).show()
@@ -110,6 +148,29 @@ class CreateNoteFragment : Fragment() {
                 }
             }
         }
+
          return binding.root
+    }
+
+    private fun createChannel(channelId : String, channelName : String) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_LOW
+            )
+
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.RED
+            notificationChannel.enableVibration(true)
+            notificationChannel.description = "You got things to do"
+
+            val notificationManager = requireActivity().getSystemService(
+                NotificationManager::class.java
+            )
+
+            notificationManager?.createNotificationChannel(notificationChannel)
+        }
     }
 }

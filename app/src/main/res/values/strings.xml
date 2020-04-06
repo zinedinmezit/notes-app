@@ -15,5 +15,6 @@
     <string name="datetime">DateTime</string>
     <string name="note_notification_channel_id" translatable="false">note_channel</string>
     <string name="note_notification_channel_name" translatable="false">Reminder</string>
+    <string name="note_notification_title">NotesApp Reminder</string>
 
 </resources>

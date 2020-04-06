@@ -18,7 +18,7 @@ fun NotificationManager.sendNotification(messageBody : String, appContext : Cont
 
     )
         .setSmallIcon(R.drawable.ic_timetable)
-        .setContentTitle(appContext.getString(R.string.app_name))
+        .setContentTitle(appContext.getString(R.string.note_notification_title))
         .setContentText(messageBody)
 
     notify(NOTIFICATION_ID,builder.build())

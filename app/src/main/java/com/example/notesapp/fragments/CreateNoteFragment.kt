@@ -113,8 +113,10 @@ class CreateNoteFragment : Fragment() {
                         context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                     val notifyIntent =
                         Intent(context, NotificationBroadcast::class.java).let { intent ->
+                            intent.putExtra("NOTIFICATION_HEADING",heading)
                             PendingIntent.getBroadcast(context, 1, intent, 0)
                         }
+
 
                     alarmManager.set(
                                 AlarmManager.RTC_WAKEUP,

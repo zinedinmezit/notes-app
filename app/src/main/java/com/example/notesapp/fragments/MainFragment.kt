@@ -1,11 +1,13 @@
 package com.example.notesapp.fragments
 
+import RecyclerItemClickListener
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -15,9 +17,11 @@ import com.example.notesapp.adapters.NoteListener
 import com.example.notesapp.databinding.FragmentMainBinding
 import com.example.notesapp.viewmodels.MainViewModel
 
+
 class MainFragment : Fragment() {
 
     private val model : MainViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +42,22 @@ class MainFragment : Fragment() {
                     adapter.submitList(it)
                  }
             })
+
+        val recyclerView = binding.notesList
+        recyclerView.addOnItemTouchListener(
+            RecyclerItemClickListener(
+                activity,
+                recyclerView,
+                object : RecyclerItemClickListener.OnItemClickListener {
+                    override fun onItemClick(view: View?, position: Int) {
+                        Log.i("ITEM/CLICK_TEST","Click $position")
+                    }
+
+                    override fun onItemLongClick(view: View?, position: Int) {
+                        Log.i("ITEM/CLICK_TEST","Long Click $position")
+                    }
+                })
+        )
 
             return binding.root
         }

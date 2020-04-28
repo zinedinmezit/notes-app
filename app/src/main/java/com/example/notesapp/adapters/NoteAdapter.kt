@@ -1,15 +1,15 @@
 package com.example.notesapp.adapters
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notesapp.R
 import com.example.notesapp.databinding.RecyclerviewItemBinding
 import com.example.notesapp.entities.Note
 
-class NoteAdapter(val clickListener : NoteListener): ListAdapter<Note,NoteViewHolder>(NoteDiffCallback()) {
+class NoteAdapter(private val clickListener : NoteListener): ListAdapter<Note,NoteViewHolder>(NoteDiffCallback()) {
 
 
 
@@ -18,18 +18,25 @@ class NoteAdapter(val clickListener : NoteListener): ListAdapter<Note,NoteViewHo
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        holder.bind(clickListener,getItem(position))
+
+            holder.bind(clickListener,getItem(position))
+
     }
+
+
 }
 
-class NoteViewHolder(val binding : RecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root){
 
-    fun bind(clickListener : NoteListener,n : Note)
+class NoteViewHolder(private val binding : RecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root){
+
+
+    fun bind(clickListener : NoteListener, n : Note)
     {
         binding.notes = n
         binding.clickListener = clickListener
         binding.executePendingBindings()
     }
+
 
     companion object {
         fun from(parent: ViewGroup): NoteViewHolder {
@@ -39,15 +46,16 @@ class NoteViewHolder(val binding : RecyclerviewItemBinding) : RecyclerView.ViewH
             return NoteViewHolder(binding)
         }
     }
-}
 
+}
 
 class NoteDiffCallback : DiffUtil.ItemCallback<Note>(){
     override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean = oldItem.Id==newItem.Id
     override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean = oldItem==newItem
 }
 
-
 class NoteListener(val clickListener: (noteId : Int) -> Unit){
     fun onClick(note : Note) = clickListener(note.Id)
 }
+
+

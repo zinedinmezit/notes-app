@@ -14,56 +14,56 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:onClick="@{() -> clickListener.onClick(notes)}"
         android:background="@color/cardBackground"
-        android:minHeight="90dp">
+        android:minHeight="100dp"
+        android:onClick="@{() -> clickListener.onClick(notes)}">
 
         <TextView
             android:id="@+id/note_heading"
             android:layout_width="0dp"
-            android:layout_height="29dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/open_sans_bold"
-            android:maxLength="24"
-            android:maxLines="1"
+            android:maxLines="2"
             android:textColor="@color/cardText"
             android:textSize="@dimen/note_heading_size"
             app:TitleSetter="@{notes}"
             app:layout_constraintEnd_toStartOf="@+id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="dasdas dasdas" />
+            tools:text="aaaaa aaaaa aaaaa aaaaa aaaaa aaaaa aaaaa aaaaa aaaaa aaaaa das das aaaaa aaaaa aaaaa aaaaa aaaaa" />
 
         <TextView
             android:id="@+id/note_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/open_sans"
-            android:maxLength="47"
-            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/cardText"
             android:textSize="@dimen/note_details_size"
             app:DetailsSetter="@{notes}"
             app:layout_constraintEnd_toStartOf="@+id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/note_heading"
-            tools:text="dsfsdf fsdfsd fdsfsd fsdfsd fsdfdsf fsdfsd fsdfsd fsdfsd fsdfsd fsdfsd fsdfsd fdsfsda fdsfds" />
+            tools:text="dsfsdf fsdfsddasd fdsfsd fsdfsd fsdfdsf fsdfsd fsdfsd fsdfsd fsdfsd fsdfsd fsdfsd fdsfsda fdsfds" />
 
         <TextView
             android:id="@+id/dateCreated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="8dp"
             app:DateCreatedSetter="@{notes}"
-            app:layout_constraintTop_toBottomOf="@id/note_text"
+            app:layout_constraintBottom_toBottomOf="@id/item_constraint"
+            app:layout_constraintStart_toStartOf="parent"
             tools:text="21.07.2020" />
 
         <TextView
@@ -71,24 +71,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            tools:text="13:04"
+            android:layout_marginBottom="8dp"
             app:TimeCreatedSetter="@{notes}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/item_constraint"
             app:layout_constraintStart_toEndOf="@+id/dateCreated"
-            app:layout_constraintTop_toBottomOf="@+id/note_text" />
+            tools:text="13:04" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="39dp" />
+            app:layout_constraintGuide_end="47dp" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@{notes.color}"
+            tools:background="@color/RedWarning"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -101,13 +102,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
-                android:textColor="@color/whiteText"
+                android:textColor="@color/cardText"
                 android:textSize="24sp"
                 app:PrioritySetter="@{notes}"
                 tools:text="1" />
 
         </LinearLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

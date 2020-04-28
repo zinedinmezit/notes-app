@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="note_heading_size">20sp</dimen>
+    <dimen name="note_heading_size">18sp</dimen>
     <dimen name="note_details_size">14sp</dimen>
     <dimen name="navigation_bottom_height">55dp</dimen>
     <dimen name ="note_details_input_height">200dp</dimen>

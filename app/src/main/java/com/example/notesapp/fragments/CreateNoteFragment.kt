@@ -44,7 +44,12 @@ import java.util.*
 class CreateNoteFragment : Fragment() {
 
     private val model : CreateViewModel by activityViewModels()
-    val colors = intArrayOf(RED, GREEN, BLUE)
+    val colors = intArrayOf(
+                argb(255,55,187,125),
+                argb(255,92,165,66),
+                argb(255,113,113,170),
+                argb(255,173,78,169),
+                argb(255,195,83,84))
    private val NOTE_LOW_PRIORITY : Int = 9
 
     @SuppressLint("SimpleDateFormat")

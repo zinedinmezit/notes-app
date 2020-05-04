@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@color/cardBackground"
+        android:background="@drawable/item_background_color_on_selected"
         android:minHeight="100dp"
         android:onClick="@{() -> clickListener.onClick(notes)}">
 

@@ -92,4 +92,7 @@ dependencies {
 
     //Afollestad color picker
     implementation 'com.afollestad.material-dialogs:color:3.2.1'
+
+    implementation 'androidx.recyclerview:recyclerview-selection:1.0.0'
+
 }

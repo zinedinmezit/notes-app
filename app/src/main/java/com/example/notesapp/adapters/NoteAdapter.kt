@@ -1,8 +1,12 @@
 package com.example.notesapp.adapters
 
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.selection.ItemDetailsLookup
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +15,14 @@ import com.example.notesapp.entities.Note
 
 class NoteAdapter(private val clickListener : NoteListener): ListAdapter<Note,NoteViewHolder>(NoteDiffCallback()) {
 
+  //  var tracker: SelectionTracker<Long>? = null
+
+
+/*
+    init {
+        setHasStableIds(true)
+    }
+*/
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -19,9 +31,21 @@ class NoteAdapter(private val clickListener : NoteListener): ListAdapter<Note,No
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
 
-            holder.bind(clickListener,getItem(position))
+           // tracker?.let {
+                //holder.bind(clickListener,getItem(position),it.isSelected(position.toLong()))
+                holder.bind(clickListener,getItem(position))
+
+        //}
+          /*  holder.itemView.setOnLongClickListener {
+
+                it.setBackgroundColor(Color.parseColor("#ffffff"))
+                Log.i("ITEM/CLICK_TEST","OKAAAAY")
+                 true
+            }*/
 
     }
+
+//    override fun getItemId(position: Int): Long = position.toLong()
 
 
 }
@@ -30,8 +54,15 @@ class NoteAdapter(private val clickListener : NoteListener): ListAdapter<Note,No
 class NoteViewHolder(private val binding : RecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root){
 
 
-    fun bind(clickListener : NoteListener, n : Note)
+    /*fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
+        object : ItemDetailsLookup.ItemDetails<Long>() {
+            override fun getPosition(): Int = adapterPosition
+            override fun getSelectionKey(): Long? = itemId
+        }*/
+
+    fun bind(clickListener : NoteListener, n : Note) //isActivated : Boolean = false
     {
+       // itemView.isActivated=isActivated
         binding.notes = n
         binding.clickListener = clickListener
         binding.executePendingBindings()

@@ -5,6 +5,7 @@ import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
@@ -44,7 +45,7 @@ import java.util.*
 class CreateNoteFragment : Fragment() {
 
     private val model : CreateViewModel by activityViewModels()
-    val colors = intArrayOf(
+    private val colors = intArrayOf(
                 argb(255,55,187,125),
                 argb(255,92,165,66),
                 argb(255,113,113,170),
@@ -60,10 +61,7 @@ class CreateNoteFragment : Fragment() {
 
         val binding : FragmentCreateBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_create,container,false)
 
-        createChannel(
-            getString(R.string.note_notification_channel_id),
-            getString(R.string.note_notification_channel_name)
-        )
+
 
         binding.buttonSubmit.setOnClickListener {
 
@@ -93,6 +91,8 @@ class CreateNoteFragment : Fragment() {
             }
 
 
+
+
             if(details_input.isNotBlank())
                 details = details_input
             if(priority_input.isNotBlank())
@@ -114,19 +114,22 @@ class CreateNoteFragment : Fragment() {
 
                 if(dateTime != null) {
 
+                    createChannel(
+                        getString(R.string.note_notification_channel_id),
+                        getString(R.string.note_notification_channel_name)
+                    )
+
                     val alarmManager =
                         context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                    val notifyIntent =
+                    val notifyIntent  =
                         Intent(context, NotificationBroadcast::class.java).let { intent ->
                             intent.putExtra("NOTIFICATION_HEADING",heading)
-                            PendingIntent.getBroadcast(context, 1, intent, 0)
+                            intent.action = System.currentTimeMillis().toString()
+                            PendingIntent.getBroadcast(context, 1, intent, FLAG_UPDATE_CURRENT)
                         }
 
+                    setAlarmManager(alarmManager,dateTime,notifyIntent)
 
-                    alarmManager.set(
-                                AlarmManager.RTC_WAKEUP,
-                                System.currentTimeMillis() + (dateTime-System.currentTimeMillis()),
-                                notifyIntent)
                 }
 
                 this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
@@ -135,25 +138,15 @@ class CreateNoteFragment : Fragment() {
         }
 
         binding.dateInput.setOnClickListener {
-            val newFragment = DatePickerFragment()
-            newFragment.show(parentFragmentManager,"datePicker")
+           showDatePickerDialog()
         }
 
         binding.timeInput.setOnClickListener{
-            val newFragment = TimePickerFragment()
-            newFragment.show(parentFragmentManager,"timePicker")
+            showTimePickerDialog()
         }
 
         binding.colorTextView.setOnClickListener {
-
-            MaterialDialog(context!!).show {
-                title(R.string.colorPickerHeading)
-                colorChooser(colors){ dialog, color ->
-
-                    binding.colorTextView.setBackgroundColor(color)
-                    binding.colorTextView.setTextColor(color)
-                }
-            }
+            showColorPickerDialog(binding)
         }
 
          return binding.root
@@ -178,6 +171,47 @@ class CreateNoteFragment : Fragment() {
             )
 
             notificationManager?.createNotificationChannel(notificationChannel)
+        }
+    }
+
+    private fun showColorPickerDialog(binding : FragmentCreateBinding){
+
+        MaterialDialog(requireContext()).show {
+            title(R.string.colorPickerHeading)
+            colorChooser(colors){ _, color ->
+
+                binding.colorTextView.setBackgroundColor(color)
+                binding.colorTextView.setTextColor(color)
+            }
+        }
+    }
+
+    private fun showTimePickerDialog(){
+
+        val newFragment = TimePickerFragment()
+        newFragment.show(parentFragmentManager,"timePicker")
+    }
+
+    private fun showDatePickerDialog(){
+        val newFragment = DatePickerFragment()
+        newFragment.show(parentFragmentManager,"datePicker")
+    }
+
+    private fun setAlarmManager(alarmManager : AlarmManager, dateTime : Long, notifyIntent: PendingIntent)
+    {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                System.currentTimeMillis() + (dateTime - System.currentTimeMillis()),
+                notifyIntent
+            )
+        }
+        else{
+            alarmManager.set(
+                AlarmManager.RTC_WAKEUP,
+                System.currentTimeMillis() + (dateTime - System.currentTimeMillis()),
+                notifyIntent
+            )
         }
     }
 }

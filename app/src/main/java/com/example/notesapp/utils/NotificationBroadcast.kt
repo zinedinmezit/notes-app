@@ -11,14 +11,17 @@ class NotificationBroadcast : BroadcastReceiver() {
 
     override fun onReceive(p0: Context?, p1: Intent?) {
 
-        val myBundle = p1?.extras
-        val notificationManager = p0?.let {
-            ContextCompat.getSystemService(
-                it,
-                NotificationManager::class.java
-            )
-        }
+            val myBundle = p1?.extras
+            val notificationManager = p0?.let {
+                ContextCompat.getSystemService(
+                    it,
+                    NotificationManager::class.java
+                )
+            }
 
-        notificationManager?.sendNotification(myBundle?.get("NOTIFICATION_HEADING")?.toString() ?: "empty here",p0) ?: Log.i("SEND_NOTIFICATION","Not working")
+            val heading = myBundle?.getString("NOTIFICATION_HEADING", "Common title")!!
+
+            notificationManager?.sendNotification(heading, p0)
+
     }
 }

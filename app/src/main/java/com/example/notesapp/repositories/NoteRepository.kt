@@ -12,6 +12,10 @@ class NoteRepository(private val noteDao : NoteDao) {
         noteDao.insert(note)
     }
 
+    suspend fun delete(note : Note){
+        noteDao.delete(note)
+    }
+
       fun getNote(noteId : Int) : LiveData<Note>{
        return noteDao.getNote(noteId)
     }

@@ -1,10 +1,7 @@
 package com.example.notesapp.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.notesapp.entities.Note
 
 @Dao
@@ -21,6 +18,9 @@ interface NoteDao {
 
     @Query("SELECT * FROM note_table WHERE Id=:Id")
       fun getNote(Id : Int) : LiveData<Note>
+
+    @Delete
+    suspend fun delete(model : Note)
 
 
 }

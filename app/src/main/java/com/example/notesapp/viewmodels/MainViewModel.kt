@@ -3,9 +3,11 @@ package com.example.notesapp.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.example.notesapp.database.NoteRoomDatabase
 import com.example.notesapp.entities.Note
 import com.example.notesapp.repositories.NoteRepository
+import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
@@ -17,6 +19,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         val notesDao = NoteRoomDatabase.getDatabase(application).noteDao()
         repository = NoteRepository(notesDao)
         allNotes = repository.allNotes
+    }
+
+     fun deleteNote(note : Note){
+         viewModelScope.launch {
+             repository.delete(note)
+         }
     }
 
 }

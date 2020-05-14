@@ -13,69 +13,76 @@
             type="com.example.notesapp.adapters.NoteListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/item_constraint"
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@drawable/item_background_color_on_selected"
-        android:minHeight="100dp"
+        app:strokeWidth="0dp"
+        app:cardElevation="10dp"
+        android:layout_margin="5dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryDarkColor"
         android:onClick="@{() -> clickListener.onClick(notes)}">
 
         <TextView
+            style="@style/note_title_style"
             android:id="@+id/note_heading"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/open_sans_bold"
-            android:maxLines="2"
-            android:textColor="@color/cardText"
-            android:textSize="@dimen/note_heading_size"
+            android:maxLines="3"
             app:TitleSetter="@{notes}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="aaaaa aaaaa aaaaa aaaaa aaaaa aaaaa aaaaa aaaaa aaaaa aaaaa das das aaaaa aaaaa aaaaa aaaaa aaaaa" />
+            app:layout_constraintEnd_toStartOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="@id/item_container"
+            app:layout_constraintTop_toTopOf="@id/item_container"
+            tools:text="@string/note_heading_test3" />
 
         <TextView
-            android:id="@+id/note_text"
+            android:id="@+id/note_details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/open_sans"
-            android:singleLine="true"
-            android:textColor="@color/cardText"
+            android:maxLines="2"
+            android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/note_details_size"
             app:DetailsSetter="@{notes}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_heading"
-            tools:text="dsfsdf fsdfsddasd fdsfsd fsdfsd fsdfdsf fsdfsd fsdfsd fsdfsd fsdfsd fsdfsd fsdfsd fdsfsda fdsfds" />
+            app:layout_constraintEnd_toStartOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="@id/item_container"
+            app:layout_constraintTop_toBottomOf="@id/note_heading"
+            tools:text="@string/note_details_test2" />
 
         <TextView
-            android:id="@+id/dateCreated"
+            android:textColor="@color/primaryTextColor"
+            android:id="@+id/note_date_created"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:DateCreatedSetter="@{notes}"
-            app:layout_constraintBottom_toBottomOf="@id/item_constraint"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="21.07.2020" />
+            app:layout_constraintBottom_toBottomOf="@id/item_container"
+            app:layout_constraintStart_toStartOf="@id/item_container"
+            app:layout_constraintTop_toBottomOf="@id/note_details"
+            tools:text="@string/note_date_created_test" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:textColor="@color/primaryTextColor"
+            android:id="@+id/note_time_created"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
             app:TimeCreatedSetter="@{notes}"
-            app:layout_constraintBottom_toBottomOf="@id/item_constraint"
-            app:layout_constraintStart_toEndOf="@+id/dateCreated"
-            tools:text="13:04" />
+            app:layout_constraintStart_toEndOf="@id/note_date_created"
+            app:layout_constraintTop_toTopOf="@+id/note_date_created"
+            tools:text="@string/note_time_created_test" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"
@@ -89,7 +96,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@{notes.color}"
-            tools:background="@color/RedWarning"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -98,17 +104,17 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:textColor="@color/secondaryTextColor"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:textStyle="bold"
                 android:id="@+id/note_priority"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/open_sans_bold"
-                android:textColor="@color/cardText"
-                android:textSize="24sp"
+                android:textSize="@dimen/priority_text_size"
                 app:PrioritySetter="@{notes}"
                 tools:text="1" />
-
         </LinearLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

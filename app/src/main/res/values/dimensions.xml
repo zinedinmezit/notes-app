@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="note_heading_size">18sp</dimen>
-    <dimen name="note_details_size">14sp</dimen>
+    <dimen name="note_heading_size">20sp</dimen>
+    <dimen name="note_details_size">15sp</dimen>
     <dimen name="navigation_bottom_height">55dp</dimen>
     <dimen name ="note_details_input_height">200dp</dimen>
     <dimen name="note_heading_input_height">60dp</dimen>
     <dimen name="note_colorField_height">30dp</dimen>
     <dimen name="note_colorField_width">100dp</dimen>
-    <dimen name="note_item_heading_size">25sp</dimen>
-    <dimen name="note_item_details_size">18sp</dimen>
+    <dimen name="note_item_heading_size">20sp</dimen>
+    <dimen name="note_item_details_size">16sp</dimen>
+    <dimen name="priority_text_size">24sp</dimen>
 </resources>

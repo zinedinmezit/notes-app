@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!--?xml version="1.0" encoding="UTF-8"?-->
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="cardBackground">#e3e3e3</color>
-    <color name="cardText">#000</color>
-    <color name="whiteText">#FFFFFF</color>
-    <color name="RedWarning">#FF0000</color>
-    <color name="GreenSuccess">#2FF303</color>
-    <color name="note_item_date_time">#BCBFC3</color>
-    <color name="note_item_background">#E6E6E6</color>
+  <color name="primaryColor">#bad4f1</color>
+  <color name="primaryLightColor">#edffff</color>
+  <color name="primaryDarkColor">#89a3be</color>
+  <color name="primaryTextColor">#000</color>
+
+  <color name="secondaryColor">#3c566f</color>
+  <color name="secondaryLightColor">#69829d</color>
+  <color name="secondaryDarkColor">#0f2d44</color>
+  <color name="secondaryTextColor">#ffffff</color>
+
 </resources>

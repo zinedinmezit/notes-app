@@ -6,24 +6,16 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
-import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Color.*
 import android.os.Build
 import android.os.Bundle
-import android.os.SystemClock
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -34,8 +26,6 @@ import com.example.notesapp.databinding.FragmentCreateBinding
 import com.example.notesapp.entities.Note
 import com.example.notesapp.utils.NotificationBroadcast
 import com.example.notesapp.viewmodels.CreateViewModel
-import kotlinx.android.synthetic.main.fragment_create.*
-import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,11 +37,14 @@ class CreateNoteFragment : Fragment() {
     private val model : CreateViewModel by activityViewModels()
     private val colors = intArrayOf(
                 argb(255,55,187,125),
-                argb(255,92,165,66),
+                argb(255,51,156,180),
                 argb(255,113,113,170),
-                argb(255,173,78,169),
-                argb(255,195,83,84))
-   private val NOTE_LOW_PRIORITY : Int = 9
+                argb(255,195,83,84),
+                argb(255,201,105,157),
+                argb(255,217,108,47)
+                )
+
+    private val NOTE_LOW_PRIORITY : Int = 9
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
@@ -65,27 +58,27 @@ class CreateNoteFragment : Fragment() {
 
         binding.buttonSubmit.setOnClickListener {
 
-            val heading_input = binding.headingInput.text.toString()
-            val details_input = binding.detailsInput.text.toString()
-            val priority_input = binding.priorityInput.text.toString()
-            val dateString_input = binding.dateInput.text.toString()
-            val timeString_input = binding.timeInput.text.toString()
-            val noteColor_input = binding.colorTextView.currentTextColor
+            val headingInput = binding.headingInput.text.toString()
+            val detailsInput = binding.detailsInput.text.toString()
+            val priorityInput = binding.priorityInput.text.toString()
+            val datestringInput = binding.dateInput.text.toString()
+            val timestringInput = binding.timeInput.text.toString()
+            val notecolorInput = binding.colorTextView.currentTextColor
 
             val dateFormat = SimpleDateFormat("dd/MM/yyyy")
             val timeFormat = SimpleDateFormat("HH:mm",Locale.UK)
 
-            var heading : String = " "
+            val heading: String?
             var details : String? = null
             var priority : Int = NOTE_LOW_PRIORITY
             var date : Long? = null
             var time : Long? = null
             var dateTime : Long? = null
 
-            if(dateString_input.isNotBlank() && timeString_input.isNotBlank()) {
-                time = timeFormat.parse(timeString_input)?.time
-                date = dateFormat.parse(dateString_input)?.time
-                val dateTimeString = "$dateString_input $timeString_input"
+            if(datestringInput.isNotBlank() && timestringInput.isNotBlank()) {
+                time = timeFormat.parse(timestringInput)?.time
+                date = dateFormat.parse(datestringInput)?.time
+                val dateTimeString = "$datestringInput $timestringInput"
                 val format = SimpleDateFormat("dd/MM/yyyy HH:mm",Locale.UK)
                 dateTime = format.parse(dateTimeString)!!.time
             }
@@ -93,21 +86,21 @@ class CreateNoteFragment : Fragment() {
 
 
 
-            if(details_input.isNotBlank())
-                details = details_input
-            if(priority_input.isNotBlank())
-                priority = priority_input.toInt()
+            if(detailsInput.isNotBlank())
+                details = detailsInput
+            if(priorityInput.isNotBlank())
+                priority = priorityInput.toInt()
 
-            if(heading_input.isNotBlank()){
+            if(headingInput.isNotBlank()){
 
-                heading = heading_input
+                heading = headingInput
 
                 val note = Note(Details = details,
                     Title = heading,
                     Priority = priority,
                     Time = time,
                     Date = date,
-                    Color = noteColor_input,
+                    Color = notecolorInput,
                     DateCreated = Calendar.getInstance().timeInMillis,
                     TimeCreated = Calendar.getInstance().timeInMillis)
                 model.insertNote(note)
@@ -120,7 +113,7 @@ class CreateNoteFragment : Fragment() {
                     )
 
                     val alarmManager =
-                        context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                        context?.getSystemService(ALARM_SERVICE) as AlarmManager
                     val notifyIntent  =
                         Intent(context, NotificationBroadcast::class.java).let { intent ->
                             intent.putExtra("NOTIFICATION_HEADING",heading)
@@ -162,7 +155,7 @@ class CreateNoteFragment : Fragment() {
             )
 
             notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.RED
+            notificationChannel.lightColor = RED
             notificationChannel.enableVibration(true)
             notificationChannel.description = "You got things to do"
 

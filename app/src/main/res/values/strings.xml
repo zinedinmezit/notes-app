@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NotesApp</string>
+    <string name="app_name">ZM</string>
     <string name="home_title">Home</string>
     <string name="create_title">New note</string>
     <string name="calendar_title">Calendar</string>
@@ -17,5 +17,16 @@
     <string name="note_notification_channel_name" translatable="false">Reminder</string>
     <string name="note_notification_title">NotesApp Reminder</string>
     <string name="delete_option">Delete</string>
-
+    <string name="calendar_fragment">Calendar fragment</string>
+    <string name="submit">Submit</string>
+    <string name="note_date_created_test">11.05.2020</string>
+    <string name="note_time_created_test">13:04</string>
+    <string name="note_heading_test1">This is example of one line heading</string>
+    <string name="note_heading_test2">This is example of two line heading in Figma and I like it pretty much</string>
+    <string name="note_heading_test3">This is example of three line heading in Figma and I like it pretty much although this is way to long for my app so here we go</string>
+    <string name="note_details_test1">This is example of one line details woala</string>
+    <string name="note_details_test2">This is example if two line details in this Android studio and I pretty much like it very much hehe</string>
+    <string name="datetime_label">Notification triggers at:</string>
+    <string name="action_search_string">Search</string>
+    <string name="action_sort_string">Sort</string>
 </resources>

@@ -34,7 +34,8 @@
             android:maxLength="90"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAutofill="no" />
 
         <EditText
             android:id="@+id/detailsInput"
@@ -46,7 +47,8 @@
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headingInput" />
+            app:layout_constraintTop_toBottomOf="@+id/headingInput"
+            android:importantForAutofill="no" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -82,7 +84,8 @@
             android:longClickable="false"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            android:importantForAutofill="no" />
 
         <EditText
             android:id="@+id/timeInput"
@@ -97,7 +100,8 @@
             android:inputType="time"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+            app:layout_constraintTop_toTopOf="@+id/imageView3"
+            android:importantForAutofill="no" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -119,14 +123,16 @@
             android:hint="@string/priorityHint"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5" />
+            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/buttonSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Submit"
+            android:backgroundTint="@color/secondaryColor"
+            android:text="@string/submit"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -137,7 +143,6 @@
             android:layout_height="@dimen/note_colorField_height"
             android:background="@android:color/black"
             android:text="@string/empty_string"
-            android:textColor="@color/cardText"
             app:layout_constraintBottom_toBottomOf="@+id/timeInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/timeInput"
@@ -148,7 +153,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/colorPickerHeading"
-            android:textColor="@color/cardText"
             app:layout_constraintBottom_toTopOf="@+id/colorTextView"
             app:layout_constraintStart_toStartOf="@+id/colorTextView" />
 

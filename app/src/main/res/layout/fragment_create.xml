@@ -30,12 +30,12 @@
             android:layout_height="@dimen/note_heading_input_height"
             android:ems="10"
             android:hint="@string/headingHint"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:maxLength="90"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/detailsInput"
@@ -44,87 +44,81 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/detailsHint"
+            android:importantForAutofill="no"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headingInput"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@+id/headingInput" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailsInput"
+            app:layout_constraintBottom_toTopOf="@+id/dateInput"
+            app:layout_constraintStart_toStartOf="@+id/dateInput"
             app:srcCompat="@drawable/ic_date_range_black_50dp" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintBottom_toTopOf="@+id/timeInput"
+            app:layout_constraintStart_toStartOf="@+id/timeInput"
             app:srcCompat="@drawable/ic_access_time_black_50dp" />
 
         <EditText
             android:id="@+id/dateInput"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/editext_createnote_size"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             android:clickable="false"
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="@string/dateHint"
+            android:importantForAutofill="no"
             android:inputType="date"
             android:longClickable="false"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2"
-            android:importantForAutofill="no" />
+            app:layout_constraintEnd_toStartOf="@+id/timeInput"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsInput" />
 
         <EditText
             android:id="@+id/timeInput"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/editext_createnote_size"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             android:clickable="false"
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="@string/timeHint"
+            android:importantForAutofill="no"
             android:inputType="time"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3"
-            android:importantForAutofill="no" />
+            app:layout_constraintEnd_toStartOf="@+id/priorityInput"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dateInput"
+            app:layout_constraintTop_toBottomOf="@+id/detailsInput" />
 
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintBottom_toTopOf="@+id/priorityInput"
+            app:layout_constraintStart_toStartOf="@+id/priorityInput"
             app:srcCompat="@drawable/ic_low_priority_black_50dp" />
 
         <EditText
             android:id="@+id/priorityInput"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/editext_createnote_size"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
+            android:importantForAutofill="no"
             android:inputType="number"
-            android:hint="@string/priorityHint"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5"
-            android:importantForAutofill="no" />
+            app:layout_constraintEnd_toStartOf="@+id/colorTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/timeInput"
+            app:layout_constraintTop_toBottomOf="@+id/detailsInput" />
 
         <Button
             android:id="@+id/buttonSubmit"
@@ -139,14 +133,15 @@
 
         <TextView
             android:id="@+id/colorTextView"
-            android:layout_width="@dimen/note_colorField_width"
+            android:layout_width="@dimen/editext_createnote_size"
             android:layout_height="@dimen/note_colorField_height"
+            android:layout_marginTop="32dp"
             android:background="@android:color/black"
             android:text="@string/empty_string"
-            app:layout_constraintBottom_toBottomOf="@+id/timeInput"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/timeInput"
-            app:layout_constraintTop_toTopOf="@+id/timeInput" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/priorityInput"
+            app:layout_constraintTop_toBottomOf="@+id/detailsInput" />
 
         <TextView
             android:id="@+id/colorLabel"
@@ -155,6 +150,33 @@
             android:text="@string/colorPickerHeading"
             app:layout_constraintBottom_toTopOf="@+id/colorTextView"
             app:layout_constraintStart_toStartOf="@+id/colorTextView" />
+
+        <TextView
+            android:id="@+id/date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_label"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+        <TextView
+            android:id="@+id/time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_label"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+        <TextView
+            android:id="@+id/priority_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/priority_label"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

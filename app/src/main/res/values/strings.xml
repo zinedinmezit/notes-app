@@ -29,4 +29,7 @@
     <string name="datetime_label">Notification triggers at:</string>
     <string name="action_search_string">Search</string>
     <string name="action_sort_string">Sort</string>
+    <string name="date_label">Date</string>
+    <string name="time_label">Time</string>
+    <string name="priority_label">Priority</string>
 </resources>

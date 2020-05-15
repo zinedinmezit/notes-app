@@ -3,8 +3,10 @@ package com.example.notesapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -24,15 +26,19 @@ class MainFragment : Fragment() {
 
     private val model : MainViewModel by activityViewModels()
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+
         val binding : FragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main,container,false)
 
         val adapter = NoteAdapter(NoteListener { id ->
             this.findNavController().navigate(MainFragmentDirections.actionAppHomeToNoteDetailsFragment(id)) })
+
 
         val helper = ItemTouchHelper(
             object : ItemTouchHelper.SimpleCallback(

@@ -15,11 +15,7 @@
             app:destination="@id/noteDetailsFragment"
             app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
-    <fragment
-        android:id="@+id/calendar"
-        tools:layout="@layout/fragment_calendar"
-        android:name="com.example.notesapp.fragments.CalendarFragment"
-        android:label="CalendarFragment" />
+
     <fragment
         android:id="@+id/createNote"
         tools:layout="@layout/fragment_create"

@@ -3,10 +3,8 @@ package com.example.notesapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -66,7 +64,7 @@ class MainFragment : Fragment() {
             })
 
         val recyclerView = binding.notesList
-        helper.attachToRecyclerView(recyclerView);
+        helper.attachToRecyclerView(recyclerView)
 
 
 

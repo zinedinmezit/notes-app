@@ -2,8 +2,6 @@ package com.example.notesapp
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
-import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController

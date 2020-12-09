@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.databinding.RecyclerviewItemBinding
 import com.example.notesapp.entities.Note
 
+
+
+
 class NoteAdapter(private val clickListener : NoteListener): ListAdapter<Note,NoteViewHolder>(NoteDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -18,13 +21,11 @@ class NoteAdapter(private val clickListener : NoteListener): ListAdapter<Note,No
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-
                 holder.bind(clickListener,getItem(position))
     }
 
 
     fun getNoteAtPosition(position : Int) : Note{
-
         return getItem(position)
     }
 
@@ -40,7 +41,6 @@ class NoteViewHolder(private val binding : RecyclerviewItemBinding) : RecyclerVi
         binding.executePendingBindings()
     }
 
-
     companion object {
         fun from(parent: ViewGroup): NoteViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
@@ -49,13 +49,14 @@ class NoteViewHolder(private val binding : RecyclerviewItemBinding) : RecyclerVi
             return NoteViewHolder(binding)
         }
     }
-
 }
+
 
 class NoteDiffCallback : DiffUtil.ItemCallback<Note>(){
     override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean = oldItem.Id==newItem.Id
     override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean = oldItem==newItem
 }
+
 
 class NoteListener(val clickListener: (noteId : Int) -> Unit){
     fun onClick(note : Note) = clickListener(note.Id)

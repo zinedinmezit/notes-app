@@ -18,7 +18,6 @@ class NotificationBroadcast : BroadcastReceiver() {
                     NotificationManager::class.java
                 )
             }
-
             val heading = myBundle?.getString("NOTIFICATION_HEADING", "Common title")!!
 
             notificationManager?.sendNotification(heading, p0)

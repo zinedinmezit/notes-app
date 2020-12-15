@@ -57,81 +57,85 @@ class CalendarFragment : Fragment() {
 
         lifecycleScope.launchWhenStarted {
             notes = model.getNotesFromDefferable()
+
+            val currentMonth = YearMonth.now()
+            val firstMonth = currentMonth.minusMonths(10)
+            val lastMonth = currentMonth.plusMonths(10)
+            val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
+            binding.appCalendar.apply {
+                setup(firstMonth, lastMonth, firstDayOfWeek)
+                scrollToMonth(currentMonth)
+            }
+
+            if (savedInstanceState == null) {
+                binding.appCalendar.post {
+                    // Show today's events initially.
+                    selectDate(today)
+                }
+            }
+
+            class DayViewContainer(view: View) : ViewContainer(view) {
+                lateinit var day: CalendarDay // Will be set when this container is bound.
+                val myBinding = CalendarDayFieldBinding.bind(view)
+
+                init {
+                    view.setOnClickListener {
+                        if (day.owner == DayOwner.THIS_MONTH) {
+                            selectDate(day.date)
+                        }
+                    }
+                }
+            }
+
+            binding.appCalendar.dayBinder = object : DayBinder<DayViewContainer>{
+
+                override fun bind(container: DayViewContainer, day: CalendarDay) {
+                    container.day = day
+                    val textView = container.myBinding.fieldDay
+                    val dotView = container.myBinding.fieldStatus
+
+                    textView.text = day.date.dayOfMonth.toString()
+                    if (day.owner == DayOwner.THIS_MONTH) {
+                        textView.isVisible = true
+                        when (day.date) {
+
+                            today -> {
+                                textView.setBackgroundResource(R.color.primaryColor)
+                                dotView.isVisible = false
+                            }
+                            selectedDate -> {
+                                textView.setBackgroundResource(R.color.primaryColor)
+                                dotView.isVisible = false
+                            }
+                            else -> {
+                                textView.background = null
+                                dotView.isVisible = notes?.any { note -> LocalDate.parse(note.DateScheduledString,selectionFormatter) == day.date } ?: false
+                            }
+                        }
+                    } else {
+                        textView.isVisible = false
+                        dotView.isVisible = false
+                    }
+                }
+
+                override fun create(view: View) = DayViewContainer(view)
+            }
+
+            class MonthViewContainer(view: View) : ViewContainer(view) {
+                val legendLayout = CalendarHeaderBinding.bind(view).legendLayout.rootView
+            }
+            binding.appCalendar.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer>{
+                override fun bind(container: MonthViewContainer, month: CalendarMonth) {
+                    if (container.legendLayout.tag == null) {
+                        container.legendLayout.tag = month.yearMonth
+                    }
+                }
+
+                override fun create(view: View) = MonthViewContainer(view)
+            }
         }
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        val currentMonth = YearMonth.now()
-        val firstMonth = currentMonth.minusMonths(10)
-        val lastMonth = currentMonth.plusMonths(10)
-        val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
-        binding.appCalendar.apply {
-            setup(firstMonth, lastMonth, firstDayOfWeek)
-            scrollToMonth(currentMonth)
-        }
-
-        class DayViewContainer(view: View) : ViewContainer(view) {
-            lateinit var day: CalendarDay // Will be set when this container is bound.
-            val myBinding = CalendarDayFieldBinding.bind(view)
-
-            init {
-                view.setOnClickListener {
-                    if (day.owner == DayOwner.THIS_MONTH) {
-                        selectDate(day.date)
-                    }
-                }
-            }
-        }
-
-        binding.appCalendar.dayBinder = object : DayBinder<DayViewContainer>{
-
-            override fun bind(container: DayViewContainer, day: CalendarDay) {
-                container.day = day
-                val textView = container.myBinding.fieldDay
-                val dotView = container.myBinding.fieldStatus
-
-                textView.text = day.date.dayOfMonth.toString()
-                if (day.owner == DayOwner.THIS_MONTH) {
-                    textView.isVisible = true
-                    when (day.date) {
-
-                        today -> {
-                            textView.setBackgroundResource(R.color.primaryColor)
-                            dotView.isVisible = false
-                        }
-                        selectedDate -> {
-                            textView.setBackgroundResource(R.color.primaryColor)
-                            dotView.isVisible = false
-                        }
-                        else -> {
-                            textView.background = null
-                            //dotView.isVisible = notes?.any { note -> LocalDate.parse(note.DateScheduledString,selectionFormatter) == day.date  } ?: false
-                        }
-                    }
-                } else {
-                    textView.isVisible = false
-                    dotView.isVisible = false
-                }
-            }
-
-            override fun create(view: View) = DayViewContainer(view)
-        }
-
-        class MonthViewContainer(view: View) : ViewContainer(view) {
-            val legendLayout = CalendarHeaderBinding.bind(view).legendLayout.rootView
-        }
-        binding.appCalendar.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer>{
-            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                if (container.legendLayout.tag == null) {
-                    container.legendLayout.tag = month.yearMonth
-                }
-            }
-
-            override fun create(view: View) = MonthViewContainer(view)
-        }
     }
 
     private fun selectDate(date: LocalDate) {

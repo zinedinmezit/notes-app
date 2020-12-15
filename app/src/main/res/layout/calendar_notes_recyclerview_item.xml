@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="Note"
+            name="myNote"
             type="com.example.notesapp.entities.Note" />
     </data>
 
@@ -24,6 +24,7 @@
             android:textSize="@dimen/note_heading_size"
             android:textColor="@color/black"
             android:fontFamily="@font/source_sans_pro_bold"
+            android:text="@{myNote.title}"
             tools:text="Today is good day" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

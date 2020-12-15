@@ -36,8 +36,8 @@ fun TextView.setNotePriority(item : Note?){
 @BindingAdapter("DateSetter")
 fun TextView.setNoteDate(item : Note?){
     item?.let {
-        text = if(item.Date != null) {
-            val date = Date(item.Date)
+        text = if(item.DateScheduled != null) {
+            val date = Date(item.DateScheduled)
             val format = SimpleDateFormat("dd/MM/yyyy")
             format.format(date)
         }
@@ -49,8 +49,8 @@ fun TextView.setNoteDate(item : Note?){
 @BindingAdapter("TimeSetter")
 fun TextView.setTime(item : Note?){
     item?.let {
-        text = if(item.Time != null) {
-            val time = Date(item.Time)
+        text = if(item.TimeScheduled != null) {
+            val time = Date(item.TimeScheduled)
             val format = SimpleDateFormat("HH:mm", Locale.UK)
             format.format(time)
         }
@@ -72,7 +72,7 @@ fun TextView.setCreatedNoteDate(item : Note?){
 @BindingAdapter("TimeCreatedSetter")
 fun TextView.setCreatedTime(item : Note?){
     item?.let {
-        val time = Date(item.TimeCreated!!)
+        val time = Date(item.DateCreated!!)
         val format = SimpleDateFormat("HH:mm",Locale.UK)
         text = format.format(time)
     }

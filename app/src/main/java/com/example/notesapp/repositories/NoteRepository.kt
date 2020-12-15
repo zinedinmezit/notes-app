@@ -19,4 +19,9 @@ class NoteRepository(private val noteDao : NoteDao) {
       fun getNote(noteId : Int) : LiveData<Note>{
        return noteDao.getNote(noteId)
     }
+
+    suspend fun getNotes() : List<Note>{
+        return noteDao.getNotes()
+    }
+
 }

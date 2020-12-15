@@ -60,9 +60,9 @@ class CreateNoteFragment : Fragment() {
             val headingInput = binding.headingInput.text.toString()
             val detailsInput = binding.detailsInput.text.toString()
             val priorityInput = binding.priorityInput.text.toString()
-            val datestringInput = binding.dateInput.text.toString()
-            val timestringInput = binding.timeInput.text.toString()
-            val notecolorInput = binding.colorTextView.currentTextColor
+            val dateStringInput = binding.dateInput.text.toString()
+            val timeStringInput = binding.timeInput.text.toString()
+            val noteColorInput = binding.colorTextView.currentTextColor
 
             val dateFormat = SimpleDateFormat("dd/MM/yyyy")
             val timeFormat = SimpleDateFormat("HH:mm",Locale.UK)
@@ -74,11 +74,11 @@ class CreateNoteFragment : Fragment() {
             var time : Long? = null
             var dateTime : Long? = null
 
-            if(datestringInput.isNotBlank() && timestringInput.isNotBlank()) {
-                time = timeFormat.parse(timestringInput)?.time
-                date = dateFormat.parse(datestringInput)?.time
-                val dateTimeString = "$datestringInput $timestringInput"
-                val format = SimpleDateFormat("dd/MM/yyyy HH:mm",Locale.UK)
+            if(dateStringInput.isNotBlank() && timeStringInput.isNotBlank()) {
+                time = timeFormat.parse(timeStringInput)?.time
+                date = dateFormat.parse(dateStringInput)?.time
+                val dateTimeString = "$dateStringInput $timeStringInput"
+                val format = SimpleDateFormat("dd/MM/yyyy HH:mm",Locale.getDefault())
                 dateTime = format.parse(dateTimeString)!!.time
             }
 
@@ -97,11 +97,11 @@ class CreateNoteFragment : Fragment() {
                 val note = Note(Details = details,
                     Title = heading,
                     Priority = priority,
-                    Time = time,
-                    Date = date,
-                    Color = notecolorInput,
-                    DateCreated = Calendar.getInstance().timeInMillis,
-                    TimeCreated = Calendar.getInstance().timeInMillis)
+                    TimeScheduled = time,
+                    DateScheduledString = dateStringInput,
+                    DateScheduled = date,
+                    Color = noteColorInput,
+                    DateCreated = Calendar.getInstance().timeInMillis)
                 model.insertNote(note)
 
                 if(dateTime != null) {

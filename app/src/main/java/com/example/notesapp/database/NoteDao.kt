@@ -8,7 +8,10 @@ import com.example.notesapp.entities.Note
 interface NoteDao {
 
     @Query("SELECT * FROM note_table ORDER BY Priority ASC")
-     fun getNotesByPriority() : LiveData<List<Note>>
+    fun getNotesByPriority() : LiveData<List<Note>>
+
+     @Query("SELECT * FROM note_table")
+     suspend fun getNotes() : List<Note>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(note : Note)

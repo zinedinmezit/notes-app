@@ -15,15 +15,13 @@ data class Note(
     val Details : String? = "Default details",
     @ColumnInfo(name = "Priority")
     val Priority : Int = 1,
-    @ColumnInfo(name = "Date")
-    val Date : Long?,
-    @ColumnInfo(name = "Time")
-    val Time : Long?,
+    @ColumnInfo(name = "DateScheduled")
+    val DateScheduled : Long?,
+    val DateScheduledString : String,
+    @ColumnInfo(name = "TimeScheduled")
+    val TimeScheduled : Long?,
     @ColumnInfo(name = "Color")
     val Color : Int?,
     @ColumnInfo(name = "DateCreated")
-    val DateCreated : Long?,
-    @ColumnInfo(name = "TimeCreated")
-    val TimeCreated : Long?
-
+    val DateCreated : Long?
 )

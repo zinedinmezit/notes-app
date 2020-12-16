@@ -34,6 +34,8 @@ class CalendarFragment : Fragment() {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
     private val selectionFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy")
+    private val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
+    private val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
     private var notes : List<Note>? = null
 
     private val adapter = CalendarAdapter()
@@ -119,6 +121,14 @@ class CalendarFragment : Fragment() {
                 }
 
                 override fun create(view: View) = DayViewContainer(view)
+            }
+
+            binding.appCalendar.monthScrollListener = {
+                binding.dayDisplay.text = if(it.year == today.year){
+                    titleSameYearFormatter.format(it.yearMonth)
+                }else{
+                    titleFormatter.format(it.yearMonth)
+                }
             }
 
             class MonthViewContainer(view: View) : ViewContainer(view) {

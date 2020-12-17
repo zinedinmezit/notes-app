@@ -46,6 +46,7 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         day = p3
         month = p2 + 1
         year = p1
-        di.setText("$day/$month/$year")
+
+        di.setText("${if(day < 10) "0$day" else "$day"}/${if(month<10) "0$month" else "$month"}/$year")
     }
 }

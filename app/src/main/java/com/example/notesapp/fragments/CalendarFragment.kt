@@ -52,7 +52,6 @@ class CalendarFragment : Fragment() {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
     private val selectionFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy")
-    private val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
     private var notes : List<Note>? = null
 
@@ -76,6 +75,7 @@ class CalendarFragment : Fragment() {
         recycler.adapter = adapter
 
         lifecycleScope.launchWhenStarted {
+            model.getAllNotes()
             notes = model.getNotesFromDefferable()
 
             val currentMonth = YearMonth.now()
@@ -176,6 +176,7 @@ class CalendarFragment : Fragment() {
         }
         return daysOfWeek
     }
+
 }
 
 

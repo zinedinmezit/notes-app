@@ -2,18 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/baseline_search_black_18dp"
-        android:title="@string/action_search_string"
-        app:showAsAction="ifRoom"
-        />
-
-    <item
-        android:id="@+id/action_sort"
-        android:icon="@drawable/baseline_sort_black_18dp"
-        android:title="@string/action_sort_string"
-        app:showAsAction="ifRoom"
-        />
 
 </menu>

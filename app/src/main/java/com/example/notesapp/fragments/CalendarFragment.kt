@@ -75,8 +75,8 @@ class CalendarFragment : Fragment() {
         recycler.adapter = adapter
 
         lifecycleScope.launchWhenStarted {
-            model.getAllNotes()
-            notes = model.getNotesFromDefferable()
+            model.getScheduledNotes()
+            notes = model.getScheduledNotesFromDefferable()
 
             val currentMonth = YearMonth.now()
             val firstMonth = currentMonth.minusMonths(10)

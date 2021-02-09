@@ -2,6 +2,7 @@
   <dictionary name="ZinedinMezit">
     <words>
       <w>coroutines</w>
+      <w>defferable</w>
     </words>
   </dictionary>
 </component>

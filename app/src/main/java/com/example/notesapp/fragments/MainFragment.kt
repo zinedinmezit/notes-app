@@ -53,7 +53,7 @@ class MainFragment : Fragment() {
                     viewHolder: RecyclerView.ViewHolder,
                     direction: Int
                 ) {
-                    val position = viewHolder.adapterPosition
+                    val position = viewHolder.bindingAdapterPosition
                     val myNote: Note = adapter.getNoteAtPosition(position)
 
 

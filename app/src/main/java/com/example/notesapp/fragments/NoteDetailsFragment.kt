@@ -2,6 +2,7 @@ package com.example.notesapp.fragments
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -10,8 +11,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -57,6 +60,12 @@ class NoteDetailsFragment : Fragment() {
 
         binding.saveButton.setOnClickListener {
 
+            val fragmentActivity = requireActivity()
+            if(fragmentActivity.currentFocus != null) {
+                val imm: InputMethodManager =
+                    fragmentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+            }
             val heading = binding.itemHeading.text.toString()
             val details = binding.itemDetails.text.toString()
 

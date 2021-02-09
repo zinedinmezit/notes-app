@@ -1,6 +1,7 @@
 package com.example.notesapp.adapters
 
 import android.annotation.SuppressLint
+import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.notesapp.entities.Note
@@ -16,11 +17,27 @@ fun TextView.setNoteTitle(item : Note?){
     }
 }
 
+@BindingAdapter("EditTitleSetter")
+fun EditText.setNoteTitle(item : Note?){
+
+    item?.let {
+        setText(it.Title)
+    }
+}
+
 @BindingAdapter("DetailsSetter")
 fun TextView.setNoteDetails(item : Note?){
 
     item?.let {
         text = item.Details ?: " "
+    }
+}
+
+@BindingAdapter("EditDetailsSetter")
+fun EditText.setNoteDetails(item : Note?){
+
+    item?.let {
+        setText(it.Details)
     }
 }
 

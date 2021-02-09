@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentNotedetailsBinding
 import com.example.notesapp.factories.NoteDetailsFactory
@@ -31,7 +34,7 @@ class NoteDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val args = NoteDetailsFragmentArgs.fromBundle(arguments!!)
+        val args = NoteDetailsFragmentArgs.fromBundle(requireArguments())
 
         val binding : FragmentNotedetailsBinding =
             DataBindingUtil
@@ -43,7 +46,23 @@ class NoteDetailsFragment : Fragment() {
 
         binding.details = viewModel
 
+        binding.itemHeading.addTextChangedListener {
+            viewModel.hasHeadingTextChanged.value = it.toString() != viewModel.note.value?.Title
+        }
 
+        binding.itemDetails.addTextChangedListener {
+            viewModel.hasDetailsTextChanged.value = it.toString() != viewModel.note.value?.Details
+        }
+
+        binding.saveButton.setOnClickListener {
+
+            val heading = binding.itemHeading.text.toString()
+            val details = binding.itemDetails.text.toString()
+
+            viewModel.updateNote(viewModel.note.value?.Id!!, heading, details)
+
+            this.findNavController().popBackStack()
+        }
 
         return binding.root
     }

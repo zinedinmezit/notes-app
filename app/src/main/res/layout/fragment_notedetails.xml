@@ -11,6 +11,9 @@
         <variable
             name="notes"
             type="com.example.notesapp.entities.Note" />
+
+        <import type="android.view.View"/>
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,47 +27,64 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_end="@dimen/navigation_bottom_height" />
 
-        <TextView
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="@{details.hasDetailsTextChanged || details.hasHeadingTextChanged ? View.VISIBLE : View.INVISIBLE}"
+            android:text="@string/save"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
             android:id="@+id/item_heading"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="#00000000"
+            android:hint="@string/headingHint"
             android:textSize="@dimen/note_item_heading_size"
-            app:TitleSetter="@{details.note}"
+            app:EditTitleSetter="@{details.note}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/save_button"
             tools:text="@string/note_heading_test3" />
 
-        <TextView
+
+        <EditText
             android:id="@+id/item_details"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:hint="@string/detailsHint"
             android:textSize="@dimen/note_item_details_size"
-            app:DetailsSetter="@{details.note}"
+            app:EditDetailsSetter="@{details.note}"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout_timetable"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:background="#00000000"
+            android:gravity="start"
             app:layout_constraintTop_toBottomOf="@+id/item_heading"
             tools:text="@string/note_details_test2" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout_timetable"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:id="@+id/timetable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="41dp"
+                android:layout_height="37dp"
                 android:contentDescription="@string/datetime"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -88,10 +108,11 @@
                 android:id="@+id/item_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="16dp"
                 android:textAlignment="center"
                 android:textSize="@dimen/note_item_details_size"
                 app:TimeSetter="@{details.note}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/timetable"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -113,24 +134,17 @@
                 android:id="@+id/item_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="16dp"
                 android:textAlignment="center"
                 android:textSize="@dimen/note_item_details_size"
                 app:DateSetter="@{details.note}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/timetable"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/note_date_created_test" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/datetime_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="@string/datetime_label"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout_timetable"
-            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

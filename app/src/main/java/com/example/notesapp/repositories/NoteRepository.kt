@@ -24,4 +24,12 @@ class NoteRepository(private val noteDao : NoteDao) {
         return noteDao.getNotes()
     }
 
+    suspend fun getScheduledNotes() : List<Note>{
+        return noteDao.getScheduledNotes()
+    }
+
+    suspend fun updateNote(noteId : Int, heading : String, details : String){
+        noteDao.updateNote(noteId,heading,details)
+    }
+
 }

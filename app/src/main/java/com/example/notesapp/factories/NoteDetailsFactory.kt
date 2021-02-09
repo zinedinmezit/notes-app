@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.notesapp.viewmodels.NoteDetailsViewModel
 import java.lang.IllegalArgumentException
 
-class NoteDetailsFactory(private val noteId : Int,private val application: Application) : ViewModelProvider.Factory {
+@Suppress("UNCHECKED_CAST")
+class NoteDetailsFactory(private val noteId : Int, private val application: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(NoteDetailsViewModel::class.java)){
             return NoteDetailsViewModel(noteId,application) as T

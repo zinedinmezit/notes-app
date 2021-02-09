@@ -25,5 +25,11 @@ interface NoteDao {
     @Delete
     suspend fun delete(model : Note)
 
+    @Query("UPDATE note_table SET Title=:title, Details=:details WHERE Id=:noteId")
+    suspend fun updateNote(noteId : Int, title : String, details : String )
+
+    @Query("SELECT * FROM note_table WHERE DateScheduled IS NOT NULL")
+    suspend fun getScheduledNotes() : List<Note>
+
 
 }

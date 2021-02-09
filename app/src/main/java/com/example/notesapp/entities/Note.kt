@@ -23,5 +23,6 @@ data class Note(
     @ColumnInfo(name = "Color")
     val Color : Int?,
     @ColumnInfo(name = "DateCreated")
-    val DateCreated : Long?
+    val DateCreated : Long?,
+    val Status : String
 )

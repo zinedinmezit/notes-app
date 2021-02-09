@@ -75,6 +75,13 @@ fun TextView.setTime(item : Note?){
     }
 }
 
+@BindingAdapter("NoteStatus")
+fun TextView.setStatus(item : Note?){
+    item?.let {
+        text = item.Status
+    }
+}
+
 @SuppressLint("SimpleDateFormat")
 @BindingAdapter("DateCreatedSetter")
 fun TextView.setCreatedNoteDate(item : Note?){

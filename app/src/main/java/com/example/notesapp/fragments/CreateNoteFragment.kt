@@ -101,7 +101,8 @@ class CreateNoteFragment : Fragment() {
                     DateScheduledString = dateStringInput,
                     DateScheduled = date,
                     Color = noteColorInput,
-                    DateCreated = Calendar.getInstance().timeInMillis)
+                    DateCreated = Calendar.getInstance().timeInMillis,
+                    Status = "Created")
                 model.insertNote(note)
 
                 if(dateTime != null) {

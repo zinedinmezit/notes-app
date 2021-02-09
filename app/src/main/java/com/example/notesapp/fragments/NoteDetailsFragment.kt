@@ -20,6 +20,7 @@ import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentNotedetailsBinding
 import com.example.notesapp.factories.NoteDetailsFactory
 import com.example.notesapp.viewmodels.NoteDetailsViewModel
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -59,7 +60,7 @@ class NoteDetailsFragment : Fragment() {
             val heading = binding.itemHeading.text.toString()
             val details = binding.itemDetails.text.toString()
 
-            viewModel.updateNote(viewModel.note.value?.Id!!, heading, details)
+            viewModel.updateNote(viewModel.note.value?.Id!!, heading, details, Calendar.getInstance().time.time)
 
             this.findNavController().popBackStack()
         }

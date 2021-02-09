@@ -27,9 +27,9 @@ class NoteDetailsViewModel(noteId : Int,application: Application) : ViewModel() 
 
     }
 
-    fun updateNote(noteId : Int, heading : String, details : String){
+    fun updateNote(noteId : Int, heading : String, details : String, dateTime : Long){
         viewModelScope.launch {
-            repository.updateNote(noteId,heading,details)
+            repository.updateNote(noteId,heading,details, dateTime)
         }
     }
 

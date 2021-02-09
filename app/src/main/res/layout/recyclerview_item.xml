@@ -60,17 +60,14 @@
             tools:text="@string/note_details_test2" />
 
         <TextView
-            android:textColor="@color/primaryTextColor"
             android:id="@+id/note_date_created"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:textColor="@color/primaryTextColor"
             app:DateCreatedSetter="@{notes}"
-            app:layout_constraintBottom_toBottomOf="@id/item_container"
-            app:layout_constraintStart_toStartOf="@id/item_container"
-            app:layout_constraintTop_toBottomOf="@id/note_details"
+            app:layout_constraintStart_toEndOf="@+id/note_status"
+            app:layout_constraintTop_toTopOf="@+id/note_status"
             tools:text="@string/note_date_created_test" />
 
         <TextView
@@ -83,6 +80,20 @@
             app:layout_constraintStart_toEndOf="@id/note_date_created"
             app:layout_constraintTop_toTopOf="@+id/note_date_created"
             tools:text="@string/note_time_created_test" />
+
+        <TextView
+            android:id="@+id/note_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/primaryTextColor"
+            app:NoteStatus="@{notes}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/note_details"
+            tools:text="Created" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"

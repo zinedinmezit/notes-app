@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -76,7 +79,18 @@ class MainFragment : Fragment() {
                  }
             })
 
+        val searchItem = binding.topAppBar.menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextChange(newText: String?): Boolean {
+                    model.searchNotes(newText ?: "")
+                return true
+            }
 
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+        })
 
             return binding.root
         }

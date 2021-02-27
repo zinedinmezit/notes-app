@@ -8,7 +8,7 @@ import com.example.notesapp.entities.Note
 interface NoteDao {
 
     @Query("SELECT * FROM note_table ORDER BY Priority ASC")
-    fun getNotesByPriority() : LiveData<List<Note>>
+    suspend fun getNotesByPriority() : List<Note>
 
      @Query("SELECT * FROM note_table")
      suspend fun getNotes() : List<Note>
@@ -21,6 +21,9 @@ interface NoteDao {
 
     @Query("SELECT * FROM note_table WHERE Id=:Id")
       fun getNote(Id : Int) : LiveData<Note>
+
+      @Query("SELECT * FROM note_table WHERE Title LIKE '%' || :query || '%' ")
+      suspend fun searchNote(query : String) : List<Note>
 
     @Delete
     suspend fun delete(model : Note)

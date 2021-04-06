@@ -37,4 +37,10 @@
     <string name="save">Save</string>
     <string name="search_hint">Search note</string>
     <string name="search">Search</string>
+    <string name="fab_content_desc">Save</string>
+    <string name="sort_by">Sort by</string>
+    <string name="by_priority">Priority</string>
+    <string name="created_date">Created Date</string>
+    <string name="scheduled_date">Scheduled Date</string>
+    <string name="color">Color</string>
 </resources>

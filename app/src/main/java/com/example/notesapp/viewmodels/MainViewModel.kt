@@ -14,14 +14,18 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private val repository : NoteRepository
 
-    private val _allNotes : MutableLiveData<List<Note>> = MutableLiveData()
-    val allNotes : LiveData<List<Note>>
-        get() = _allNotes
+    val selectedNotes : LiveData<List<Note>>
+
+    private val _searchedNotes = MutableLiveData<List<Note>>()
+            val searchedNotes get() = _searchedNotes
+
+
 
     init{
         val notesDao = NoteRoomDatabase.getDatabase(application).noteDao()
         repository = NoteRepository(notesDao)
-        getNotes()
+
+        selectedNotes = repository.allNotes
     }
 
      fun deleteNote(note : Note){
@@ -30,16 +34,38 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
          }
     }
 
-   private fun getNotes(){
-        viewModelScope.launch {
-            _allNotes.postValue(repository.getNotesByPriority())
-        }
-    }
-
     fun searchNotes(query : String){
         viewModelScope.launch {
-            _allNotes.postValue(repository.searchNote(query))
+            if(query.isNotBlank()){
+               searchedNotes.postValue(repository.searchNote(query))
+            }
+            else{
+                searchedNotes.postValue(repository.getNotesByPriority())
+            }
         }
     }
 
+    fun getNotesByPriority(){
+        viewModelScope.launch {
+            searchedNotes.postValue(repository.getNotesByPriority())
+        }
+    }
+
+    fun getNotesByCreatedDate(){
+        viewModelScope.launch {
+            searchedNotes.postValue(repository.getNotesByCreatedDate())
+        }
+    }
+
+    fun getNotesByScheduledDate(){
+        viewModelScope.launch {
+            searchedNotes.postValue(repository.getNotesByScheduledDate())
+        }
+    }
+
+    fun getNotesByColor(){
+        viewModelScope.launch {
+            searchedNotes.postValue(repository.getNotesByColor())
+        }
+    }
 }

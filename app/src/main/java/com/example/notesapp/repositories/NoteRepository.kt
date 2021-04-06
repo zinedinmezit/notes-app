@@ -6,14 +6,15 @@ import com.example.notesapp.entities.Note
 
 class NoteRepository(private val noteDao : NoteDao) {
 
+    val allNotes = noteDao.getNotesByPriorityLiveData()
 
     suspend fun insert(note : Note){
         noteDao.insert(note)
     }
 
-    suspend fun getNotesByPriority() : List<Note>{
+    /*suspend fun getNotesByPriority() : List<Note>?{
         return noteDao.getNotesByPriority()
-    }
+    }*/
 
     suspend fun delete(note : Note){
         noteDao.delete(note)
@@ -25,6 +26,22 @@ class NoteRepository(private val noteDao : NoteDao) {
 
     suspend fun getNotes() : List<Note>{
         return noteDao.getNotes()
+    }
+
+    suspend fun getNotesByPriority() : List<Note>{
+        return noteDao.getNotesByPriority()
+    }
+
+    suspend fun getNotesByScheduledDate() : List<Note>{
+        return noteDao.getNotesByScheduledDate()
+    }
+
+    suspend fun getNotesByCreatedDate() : List<Note>{
+        return noteDao.getNotesByCreationDate()
+    }
+
+    suspend fun getNotesByColor() : List<Note>{
+        return noteDao.getNotesByColor()
     }
 
     suspend fun getScheduledNotes() : List<Note>{

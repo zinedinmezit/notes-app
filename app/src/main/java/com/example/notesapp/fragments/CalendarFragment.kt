@@ -24,7 +24,9 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.temporal.WeekFields
@@ -32,34 +34,26 @@ import java.util.*
 
 class CalendarFragment : Fragment() {
 
-    inner class DayViewContainer(view: View) : ViewContainer(view) {
-        lateinit var day: CalendarDay // Will be set when this container is bound.
-        val myBinding = CalendarDayFieldBinding.bind(view)
-
-        init {
-            view.setOnClickListener {
-                if (day.owner == DayOwner.THIS_MONTH) {
-                    selectDate(day.date)
-                }
-            }
-        }
-    }
-
-    class MonthViewContainer(view: View) : ViewContainer(view) {
-        val legendLayout : View = CalendarHeaderBinding.bind(view).legendLayout.rootView
-    }
-
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
+
     private val selectionFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy")
     private val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
-    private var notes : List<Note>? = null
+
+    private val currentMonth: YearMonth = YearMonth.now()
+    private val firstMonth: YearMonth = currentMonth.minusMonths(10)
+    private val lastMonth: YearMonth = currentMonth.plusMonths(10)
+    private val firstDayOfWeek = daysOfWeekFromLocale()
+
+
+    private var notes: List<Note>? = null
+
 
     private val adapter = CalendarAdapter()
 
 
-    private lateinit var binding : FragmentCalendarBinding
-    private val model : CalendarViewModel by activityViewModels()
+    private lateinit var binding: FragmentCalendarBinding
+    private val model: CalendarViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,72 +68,80 @@ class CalendarFragment : Fragment() {
         val recycler = binding.planRecyclerView
         recycler.adapter = adapter
 
-        lifecycleScope.launchWhenStarted {
-            model.getScheduledNotes()
+        lifecycleScope.launch {
             notes = model.getScheduledNotesFromDefferable()
+        }
 
-            val currentMonth = YearMonth.now()
-            val firstMonth = currentMonth.minusMonths(10)
-            val lastMonth = currentMonth.plusMonths(10)
-            val firstDayOfWeek = daysOfWeekFromLocale()
-            binding.appCalendar.apply {
-                setup(firstMonth, lastMonth, firstDayOfWeek.first())
-                scrollToMonth(currentMonth)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.appCalendar.apply {
+            setup(firstMonth, lastMonth, firstDayOfWeek.first())
+            scrollToMonth(currentMonth)
+        }
+
+        if (savedInstanceState == null) {
+            binding.appCalendar.post {
+                // Show today's events initially.
+                selectDate(today)
             }
+        }
 
-            if (savedInstanceState == null) {
-                binding.appCalendar.post {
-                    // Show today's events initially.
-                    selectDate(today)
-                }
-            }
+        binding.appCalendar.dayBinder = object : DayBinder<DayViewContainer> {
 
-            binding.appCalendar.dayBinder = object : DayBinder<DayViewContainer>{
+            override fun bind(container: DayViewContainer, day: CalendarDay) {
+                container.day = day
+                val textView = container.myBinding.fieldDay
+                val dotView = container.myBinding.fieldStatus
 
-                override fun bind(container: DayViewContainer, day: CalendarDay) {
-                    container.day = day
-                    val textView = container.myBinding.fieldDay
-                    val dotView = container.myBinding.fieldStatus
+                textView.text = day.date.dayOfMonth.toString()
+                if (day.owner == DayOwner.THIS_MONTH) {
+                    textView.isVisible = true
+                    when (day.date) {
 
-                    textView.text = day.date.dayOfMonth.toString()
-                    if (day.owner == DayOwner.THIS_MONTH) {
-                        textView.isVisible = true
-                        when (day.date) {
-
-                            today -> {
-                                textView.setBackgroundResource(R.color.primaryColor)
-                                dotView.isVisible = false
-                            }
-                            selectedDate -> {
-                                textView.setBackgroundResource(R.color.primaryColor)
-                                dotView.isVisible = false
-                            }
-                            else -> {
-                                textView.background = null
-                                dotView.isVisible = notes?.any { note -> LocalDate.parse(note.DateScheduledString,selectionFormatter) == day.date } ?: false
-                            }
+                        today -> {
+                            textView.setBackgroundResource(R.color.primaryColor)
+                            dotView.isVisible = false
                         }
-                    } else {
-                        textView.isVisible = false
-                        dotView.isVisible = false
+                        selectedDate -> {
+                            textView.setBackgroundResource(R.color.primaryColor)
+                            dotView.isVisible = false
+                        }
+                        else -> {
+                            textView.background = null
+                            dotView.isVisible = notes?.any { note ->
+                                LocalDate.parse(
+                                    note.DateScheduledString,
+                                    selectionFormatter
+                                ) == day.date
+                            } ?: false
+                        }
                     }
-
-                    if (day.owner == DayOwner.THIS_MONTH) {
-                        textView.setTextColor(Color.BLACK)
-                    } else {
-                        textView.setTextColor(Color.GRAY)
-                    }
+                } else {
+                    textView.isVisible = false
+                    dotView.isVisible = false
                 }
 
-                override fun create(view: View) = DayViewContainer(view)
+                if (day.owner == DayOwner.THIS_MONTH) {
+                    textView.setTextColor(Color.BLACK)
+                } else {
+                    textView.setTextColor(Color.GRAY)
+                }
             }
 
-            binding.appCalendar.monthScrollListener = {
-                binding.dayDisplay.text =
-                    titleFormatter.format(it.yearMonth)
-            }
+            override fun create(view: View) = DayViewContainer(view)
+        }
 
-            binding.appCalendar.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer>{
+        binding.appCalendar.monthScrollListener = {
+            binding.dayDisplay.text =
+                titleFormatter.format(it.yearMonth)
+        }
+
+        binding.appCalendar.monthHeaderBinder =
+            object : MonthHeaderFooterBinder<MonthViewContainer> {
                 override fun bind(container: MonthViewContainer, month: CalendarMonth) {
                     if (container.legendLayout.tag == null) {
                         container.legendLayout.tag = month.yearMonth
@@ -148,9 +150,6 @@ class CalendarFragment : Fragment() {
 
                 override fun create(view: View) = MonthViewContainer(view)
             }
-        }
-
-        return binding.root
     }
 
     private fun selectDate(date: LocalDate) {
@@ -159,7 +158,12 @@ class CalendarFragment : Fragment() {
             selectedDate = date
             oldDate?.let { binding.appCalendar.notifyDateChanged(it) }
             binding.appCalendar.notifyDateChanged(date)
-            val notesToSubmit = notes?.filter { note -> LocalDate.parse(note.DateScheduledString,selectionFormatter) == selectedDate }
+            val notesToSubmit = notes?.filter { note ->
+                LocalDate.parse(
+                    note.DateScheduledString,
+                    selectionFormatter
+                ) == selectedDate
+            }
             adapter.submitList(notesToSubmit)
         }
     }
@@ -175,6 +179,24 @@ class CalendarFragment : Fragment() {
             daysOfWeek = rhs + lhs
         }
         return daysOfWeek
+    }
+
+
+    inner class DayViewContainer(view: View) : ViewContainer(view) {
+        lateinit var day: CalendarDay // Will be set when this container is bound.
+        val myBinding = CalendarDayFieldBinding.bind(view)
+
+        init {
+            view.setOnClickListener {
+                if (day.owner == DayOwner.THIS_MONTH) {
+                    selectDate(day.date)
+                }
+            }
+        }
+    }
+
+    inner class MonthViewContainer(view: View) : ViewContainer(view) {
+        val legendLayout: View = CalendarHeaderBinding.bind(view).legendLayout.rootView
     }
 
 }

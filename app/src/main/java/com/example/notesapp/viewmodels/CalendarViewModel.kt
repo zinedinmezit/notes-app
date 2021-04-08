@@ -16,7 +16,6 @@ class CalendarViewModel(app : Application) : AndroidViewModel(app) {
 
     private val repository : NoteRepository
 
-    private var notesDefferable : CompletableDeferred<List<Note>> = CompletableDeferred()
     private var scheduledNotesDefferable : CompletableDeferred<List<Note>> = CompletableDeferred()
 
     init {
@@ -24,11 +23,7 @@ class CalendarViewModel(app : Application) : AndroidViewModel(app) {
         repository = NoteRepository((dao))
     }
 
-     fun getAllNotes(){
-        viewModelScope.launch {
-            notesDefferable.complete(repository.getNotes())
-        }
-    }
+
 
     fun getScheduledNotes(){
         viewModelScope.launch {
@@ -36,13 +31,11 @@ class CalendarViewModel(app : Application) : AndroidViewModel(app) {
         }
     }
 
-    suspend fun getNotesFromDefferable() : List<Note>{
-        val notes = notesDefferable.await()
-        notesDefferable = CompletableDeferred()
-        return notes
-    }
+
 
     suspend fun getScheduledNotesFromDefferable() : List<Note>{
+        getScheduledNotes()
+
         val scheduledNotes = scheduledNotesDefferable.await()
         scheduledNotesDefferable = CompletableDeferred()
         return scheduledNotes

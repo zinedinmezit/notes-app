@@ -16,6 +16,11 @@
 
     </data>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,17 +32,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_end="@dimen/navigation_bottom_height" />
 
-
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:visibility="@{details.hasDetailsTextChanged || details.hasHeadingTextChanged ? View.VISIBLE : View.INVISIBLE}"
-            android:text="@string/save"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/item_heading"
@@ -51,7 +45,7 @@
             app:EditTitleSetter="@{details.note}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/save_button"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/note_heading_test3" />
 
 
@@ -147,4 +141,16 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="150dp"
+            android:layout_marginEnd="30dp"
+            android:contentDescription="@string/fab_content_desc"
+            android:visibility="@{details.hasDetailsTextChanged || details.hasHeadingTextChanged ? View.VISIBLE : View.INVISIBLE}"
+            app:srcCompat="@drawable/ic_baseline_save_24"/>
+    </FrameLayout>
 </layout>

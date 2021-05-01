@@ -43,4 +43,6 @@
     <string name="created_date">Created Date</string>
     <string name="scheduled_date">Scheduled Date</string>
     <string name="color">Color</string>
+
+    <string name="scheduled_notes_date">Scheduled notes on %1$s</string>
 </resources>

@@ -19,6 +19,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val _searchedNotes = MutableLiveData<List<Note>>()
             val searchedNotes get() = _searchedNotes
 
+    var firstFragmentAppearance : Boolean = true
 
 
     init{
@@ -26,6 +27,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         repository = NoteRepository(notesDao)
 
         selectedNotes = repository.allNotes
+
+        firstFragmentAppearance = true
     }
 
      fun deleteNote(note : Note){

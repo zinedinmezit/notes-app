@@ -9,16 +9,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @BindingAdapter("TitleSetter")
-fun TextView.setNoteTitle(item : Note?){
+fun TextView.setNoteTitle(item: Note?) {
 
     item?.let {
-        text = if(item.Title.isBlank()) "not defined"
-               else item.Title
+        text = if (item.Title.isBlank()) "not defined"
+        else item.Title
     }
 }
 
 @BindingAdapter("EditTitleSetter")
-fun EditText.setNoteTitle(item : Note?){
+fun EditText.setNoteTitle(item: Note?) {
 
     item?.let {
         setText(it.Title)
@@ -26,7 +26,7 @@ fun EditText.setNoteTitle(item : Note?){
 }
 
 @BindingAdapter("DetailsSetter")
-fun TextView.setNoteDetails(item : Note?){
+fun TextView.setNoteDetails(item: Note?) {
 
     item?.let {
         text = item.Details ?: " "
@@ -34,7 +34,7 @@ fun TextView.setNoteDetails(item : Note?){
 }
 
 @BindingAdapter("EditDetailsSetter")
-fun EditText.setNoteDetails(item : Note?){
+fun EditText.setNoteDetails(item: Note?) {
 
     item?.let {
         setText(it.Details)
@@ -42,7 +42,7 @@ fun EditText.setNoteDetails(item : Note?){
 }
 
 @BindingAdapter("PrioritySetter")
-fun TextView.setNotePriority(item : Note?){
+fun TextView.setNotePriority(item: Note?) {
 
     item?.let {
         text = item.Priority.toString()
@@ -51,32 +51,30 @@ fun TextView.setNotePriority(item : Note?){
 
 @SuppressLint("SimpleDateFormat")
 @BindingAdapter("DateSetter")
-fun TextView.setNoteDate(item : Note?){
+fun TextView.setNoteDate(item: Note?) {
     item?.let {
-        text = if(item.DateScheduled != null) {
+        text = if (item.DateScheduled != null) {
             val date = Date(item.DateScheduled)
             val format = SimpleDateFormat("dd/MM/yyyy")
             format.format(date)
-        }
-        else "not defined"
+        } else "not defined"
     }
 }
 
 @SuppressLint("SimpleDateFormat")
 @BindingAdapter("TimeSetter")
-fun TextView.setTime(item : Note?){
+fun TextView.setTime(item: Note?) {
     item?.let {
-        text = if(item.TimeScheduled != null) {
+        text = if (item.TimeScheduled != null) {
             val time = Date(item.TimeScheduled)
             val format = SimpleDateFormat("HH:mm", Locale.UK)
             format.format(time)
-        }
-        else "not defined"
+        } else "not defined"
     }
 }
 
 @BindingAdapter("NoteStatus")
-fun TextView.setStatus(item : Note?){
+fun TextView.setStatus(item: Note?) {
     item?.let {
         text = item.Status
     }
@@ -84,7 +82,7 @@ fun TextView.setStatus(item : Note?){
 
 @SuppressLint("SimpleDateFormat")
 @BindingAdapter("DateCreatedSetter")
-fun TextView.setCreatedNoteDate(item : Note?){
+fun TextView.setCreatedNoteDate(item: Note?) {
     item?.let {
         val date = Date(item.DateCreated!!)
         val format = SimpleDateFormat("dd/MM/yyyy")
@@ -94,10 +92,10 @@ fun TextView.setCreatedNoteDate(item : Note?){
 
 @SuppressLint("SimpleDateFormat")
 @BindingAdapter("TimeCreatedSetter")
-fun TextView.setCreatedTime(item : Note?){
+fun TextView.setCreatedTime(item: Note?) {
     item?.let {
         val time = Date(item.DateCreated!!)
-        val format = SimpleDateFormat("HH:mm",Locale.UK)
+        val format = SimpleDateFormat("HH:mm", Locale.UK)
         text = format.format(time)
     }
 }

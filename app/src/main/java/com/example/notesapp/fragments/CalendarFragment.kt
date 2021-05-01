@@ -1,8 +1,6 @@
 package com.example.notesapp.fragments
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,28 +8,26 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.notesapp.R
 import com.example.notesapp.adapters.CalendarAdapter
 import com.example.notesapp.databinding.CalendarDayFieldBinding
 import com.example.notesapp.databinding.CalendarHeaderBinding
 import com.example.notesapp.databinding.FragmentCalendarBinding
 import com.example.notesapp.entities.Note
-import com.example.notesapp.viewmodels.CalendarViewModel
+import com.example.notesapp.viewmodels.MainViewModel
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.temporal.WeekFields
 import java.util.*
 
+
+//TODO Sortirati notes putem mapa kako bi se jednostavnije izvele radnje rasporedjivanja
 class CalendarFragment : Fragment() {
 
     private var selectedDate: LocalDate? = null
@@ -53,7 +49,7 @@ class CalendarFragment : Fragment() {
 
 
     private lateinit var binding: FragmentCalendarBinding
-    private val model: CalendarViewModel by activityViewModels()
+    private val model: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,15 +58,14 @@ class CalendarFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar, container, false)
         binding.lifecycleOwner = this
-        binding.executePendingBindings()
 
+
+        model.selectedNotes.observe(viewLifecycleOwner, {
+            notes = it.filter { n -> n.DateScheduledString.isNotBlank() }
+        })
 
         val recycler = binding.planRecyclerView
         recycler.adapter = adapter
-
-        lifecycleScope.launch {
-            notes = model.getScheduledNotesFromDefferable()
-        }
 
         return binding.root
     }
@@ -98,10 +93,11 @@ class CalendarFragment : Fragment() {
                 val dotView = container.myBinding.fieldStatus
 
                 textView.text = day.date.dayOfMonth.toString()
+
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.isVisible = true
-                    when (day.date) {
 
+                    when (day.date) {
                         today -> {
                             textView.setBackgroundResource(R.color.primaryColor)
                             dotView.isVisible = false
@@ -123,12 +119,6 @@ class CalendarFragment : Fragment() {
                 } else {
                     textView.isVisible = false
                     dotView.isVisible = false
-                }
-
-                if (day.owner == DayOwner.THIS_MONTH) {
-                    textView.setTextColor(Color.BLACK)
-                } else {
-                    textView.setTextColor(Color.GRAY)
                 }
             }
 
@@ -152,6 +142,7 @@ class CalendarFragment : Fragment() {
             }
     }
 
+
     private fun selectDate(date: LocalDate) {
         if (selectedDate != date) {
             val oldDate = selectedDate
@@ -165,6 +156,7 @@ class CalendarFragment : Fragment() {
                 ) == selectedDate
             }
             adapter.submitList(notesToSubmit)
+            binding.textView.text = getString(R.string.scheduled_notes_date,selectionFormatter.format(date))
         }
     }
 

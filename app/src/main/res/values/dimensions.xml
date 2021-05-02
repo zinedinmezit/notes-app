@@ -10,4 +10,9 @@
     <dimen name="note_item_heading_size">20sp</dimen>
     <dimen name="note_item_details_size">16sp</dimen>
     <dimen name="priority_text_size">24sp</dimen>
+    <dimen name="editext_createnote_size">80dp</dimen>
+
+<!-- Dimensions mainly used for FRAGMENT_CREATE -->
+    <dimen name="create_editText_note_heading">60dp</dimen>
+    <dimen name="create_editText_note_details">250dp</dimen>
 </resources>

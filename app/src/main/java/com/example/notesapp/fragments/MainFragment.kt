@@ -48,7 +48,6 @@ class MainFragment : Fragment() {
             viewLifecycleOwner, {
                 it?.let {
                     if(!model.firstFragmentAppearance) {
-                        Log.i("lifeC","${model.firstFragmentAppearance}")
                         adapter.submitList(it)
                     }
                 }
@@ -83,13 +82,11 @@ class MainFragment : Fragment() {
 
         searchItem?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener{
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                Toast.makeText(context, "Collapsed", Toast.LENGTH_SHORT).show()
                 return true
             }
 
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 model.firstFragmentAppearance = false
-                Toast.makeText(context, "Expanded", Toast.LENGTH_SHORT).show()
                 return true
             }
         })
@@ -98,13 +95,11 @@ class MainFragment : Fragment() {
     private fun setSearchViewOnQueryListener(searchView : SearchView){
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
-                Log.i("searchQueryTest", "onQueryTextChange")
                 model.searchNotes(newText ?: "")
                 return true
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                Log.i("searchQueryTest", "onTextSubmit")
                 return true
             }
         })
@@ -166,10 +161,6 @@ class MainFragment : Fragment() {
             .navigate(MainFragmentDirections.actionAppHomeToNoteDetailsFragment(id))
     })
 
-    override fun onStop() {
-        super.onStop()
-        Log.i("life","onStop")
-    }
 }
 
 

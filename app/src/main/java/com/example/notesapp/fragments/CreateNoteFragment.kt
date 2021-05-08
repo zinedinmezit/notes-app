@@ -22,9 +22,12 @@ import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.color.colorChooser
 import com.example.notesapp.R
+import com.example.notesapp.constants.Constants
 import com.example.notesapp.databinding.FragmentCreateBinding
 import com.example.notesapp.entities.Note
+import com.example.notesapp.utils.AlarmUtil
 import com.example.notesapp.utils.NotificationBroadcast
+import com.example.notesapp.utils.TypeConverters
 import com.example.notesapp.viewmodels.CreateViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -34,107 +37,86 @@ import java.util.*
  */
 class CreateNoteFragment : Fragment() {
 
-    private val model : CreateViewModel by activityViewModels()
-    private val colors = intArrayOf(
-                argb(255,55,187,125),
-                argb(255,51,156,180),
-                argb(255,113,113,170),
-                argb(255,195,83,84),
-                argb(255,201,105,157),
-                argb(255,217,108,47)
-                )
+    private lateinit var alarmManager: AlarmUtil
 
-    private val NOTE_LOW_PRIORITY : Int = 9
+    private val model: CreateViewModel by activityViewModels()
+
+    private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    val dateTimeFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val binding : FragmentCreateBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_create,container,false)
+        val binding: FragmentCreateBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_create, container, false)
 
+        alarmManager = AlarmUtil(requireContext())
 
         binding.buttonSubmit.setOnClickListener {
 
-            val headingInput = binding.headingInput.text.toString()
+            val titleInput = binding.headingInput.text.toString()
             val detailsInput = binding.detailsInput.text.toString()
             val priorityInput = binding.priorityInput.text.toString()
             val dateStringInput = binding.dateInput.text.toString()
             val timeStringInput = binding.timeInput.text.toString()
             val noteColorInput = binding.colorTextView.currentTextColor
 
-            val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-            val timeFormat = SimpleDateFormat("HH:mm",Locale.UK)
+            var date: Long? = null
+            var time: Long? = null
+            var dateTime: Long? = null
 
-            val heading: String?
-            var details : String? = null
-            var priority : Int = NOTE_LOW_PRIORITY
-            var date : Long? = null
-            var time : Long? = null
-            var dateTime : Long? = null
-
-            if(dateStringInput.isNotBlank() && timeStringInput.isNotBlank()) {
+            if (dateStringInput.isNotBlank() && timeStringInput.isNotBlank()) {
                 time = timeFormat.parse(timeStringInput)?.time
                 date = dateFormat.parse(dateStringInput)?.time
                 val dateTimeString = "$dateStringInput $timeStringInput"
-                val format = SimpleDateFormat("dd/MM/yyyy HH:mm",Locale.getDefault())
-                dateTime = format.parse(dateTimeString)!!.time
+
+                dateTime = dateTimeFormat.parse(dateTimeString)!!.time
             }
 
+            if (titleInput.isNotBlank()) {
 
-
-
-            if(detailsInput.isNotBlank())
-                details = detailsInput
-            if(priorityInput.isNotBlank())
-                priority = priorityInput.toInt()
-
-            if(headingInput.isNotBlank()){
-
-                heading = headingInput
-
-                val note = Note(Details = details,
-                    Title = heading,
-                    Priority = priority,
-                    TimeScheduled = time,
-                    DateScheduledString = dateStringInput,
+                val note = Note(
+                    Title = titleInput,
+                    Details = detailsInput,
+                    Priority = TypeConverters.stringToInt(priorityInput),
                     DateScheduled = date,
-                    Color = noteColorInput,
+                    TimeScheduled = time,
+                    DateTimeScheduled = dateTime,
+                    DateScheduledString = dateStringInput,
                     DateCreated = Calendar.getInstance().timeInMillis,
-                    Status = "Created")
+                    Color = noteColorInput,
+                    Status = "Created"
+                )
                 model.insertNote(note)
 
-                if(dateTime != null) {
+                if (dateTime != null) {
 
-                    createChannel(
-                        getString(R.string.note_notification_channel_id),
-                        getString(R.string.note_notification_channel_name)
-                    )
-
-                    val alarmManager =
-                        context?.getSystemService(ALARM_SERVICE) as AlarmManager
-                    val notifyIntent  =
+                    val notifyIntent =
                         Intent(context, NotificationBroadcast::class.java).let { intent ->
-                            intent.putExtra("NOTIFICATION_HEADING",heading)
+                            intent.putExtra("NOTIFICATION_HEADING", titleInput)
                             intent.action = System.currentTimeMillis().toString()
                             PendingIntent.getBroadcast(context, 1, intent, FLAG_UPDATE_CURRENT)
                         }
 
-                    setAlarmManager(alarmManager,dateTime,notifyIntent)
+                    alarmManager.scheduleAlarmManager(dateTime, notifyIntent)
 
                 }
 
-                this.findNavController().navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
-            }
-            else Toast.makeText(context,"Heading can't be empty",Toast.LENGTH_SHORT).show()
+                this.findNavController()
+                    .navigate(CreateNoteFragmentDirections.actionCreateNoteToAppHome())
+            } else Toast.makeText(context, "Heading can't be empty", Toast.LENGTH_SHORT).show()
         }
 
         binding.dateInput.setOnClickListener {
-           showDatePickerDialog()
+            showDatePickerDialog()
         }
 
-        binding.timeInput.setOnClickListener{
+        binding.timeInput.setOnClickListener {
             showTimePickerDialog()
         }
 
@@ -142,36 +124,14 @@ class CreateNoteFragment : Fragment() {
             showColorPickerDialog(binding)
         }
 
-         return binding.root
+        return binding.root
     }
 
-    private fun createChannel(channelId : String, channelName : String) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel(
-                channelId,
-                channelName,
-                NotificationManager.IMPORTANCE_LOW
-            )
-
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = RED
-            notificationChannel.enableVibration(true)
-            notificationChannel.description = "You got things to do"
-
-            val notificationManager = requireActivity().getSystemService(
-                NotificationManager::class.java
-            )
-
-            notificationManager?.createNotificationChannel(notificationChannel)
-        }
-    }
-
-    private fun showColorPickerDialog(binding : FragmentCreateBinding){
+    private fun showColorPickerDialog(binding: FragmentCreateBinding) {
 
         MaterialDialog(requireContext()).show {
             title(R.string.colorPickerHeading)
-            colorChooser(colors){ _, color ->
+            colorChooser(Constants.noteColors) { _, color ->
 
                 binding.colorTextView.setBackgroundColor(color)
                 binding.colorTextView.setTextColor(color)
@@ -179,32 +139,15 @@ class CreateNoteFragment : Fragment() {
         }
     }
 
-    private fun showTimePickerDialog(){
+    private fun showTimePickerDialog() {
 
         val newFragment = TimePickerFragment()
-        newFragment.show(parentFragmentManager,"timePicker")
+        newFragment.show(parentFragmentManager, "timePicker")
     }
 
-    private fun showDatePickerDialog(){
+    private fun showDatePickerDialog() {
         val newFragment = DatePickerFragment()
-        newFragment.show(parentFragmentManager,"datePicker")
+        newFragment.show(parentFragmentManager, "datePicker")
     }
 
-    private fun setAlarmManager(alarmManager : AlarmManager, dateTime : Long, notifyIntent: PendingIntent)
-    {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + (dateTime - System.currentTimeMillis()),
-                notifyIntent
-            )
-        }
-        else{
-            alarmManager.set(
-                AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + (dateTime - System.currentTimeMillis()),
-                notifyIntent
-            )
-        }
-    }
 }

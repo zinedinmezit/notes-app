@@ -6,21 +6,23 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.content.ContextCompat
+import com.example.notesapp.NotesApplication
 
 class NotificationBroadcast : BroadcastReceiver() {
 
+    //PLAN - Preko Application klase pristupiti repositoryu i dobaviti notes-e koje treba objaviti preko notifikacija
     override fun onReceive(p0: Context?, p1: Intent?) {
 
-            val myBundle = p1?.extras
-            val notificationManager = p0?.let {
-                ContextCompat.getSystemService(
-                    it,
-                    NotificationManager::class.java
-                )
-            }
-            val heading = myBundle?.getString("NOTIFICATION_HEADING", "Common title")!!
+        val myBundle = p1?.extras
+        val notificationManager = p0?.let {
+            ContextCompat.getSystemService(
+                it,
+                NotificationManager::class.java
+            )
+        }
+        val heading = myBundle?.getString("NOTIFICATION_HEADING", "Common title")!!
 
-            notificationManager?.sendNotification(heading, p0)
+        notificationManager?.sendNotification(heading, p0)
 
     }
 }

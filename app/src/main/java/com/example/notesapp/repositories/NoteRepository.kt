@@ -56,4 +56,8 @@ class NoteRepository(private val noteDao : NoteDao) {
        return noteDao.searchNote(query)
     }
 
+     fun getAwaitingNotificationNotes(currentTime : Long) : List<Note>{
+        return noteDao.getAwaitingNotificationNotes(currentTime)
+    }
+
 }

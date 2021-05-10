@@ -17,12 +17,16 @@ data class Note(
     val Priority : Int = 1,
     @ColumnInfo(name = "DateScheduled")
     val DateScheduled : Long?,
+    @ColumnInfo(name = "DateScheduledString")
     val DateScheduledString : String,
     @ColumnInfo(name = "TimeScheduled")
     val TimeScheduled : Long?,
+    @ColumnInfo(name = "DateTimeScheduled")
+    val DateTimeScheduled : Long?,
     @ColumnInfo(name = "Color")
     val Color : Int?,
     @ColumnInfo(name = "DateCreated")
     val DateCreated : Long?,
+    @ColumnInfo(name = "Status")
     val Status : String
 )

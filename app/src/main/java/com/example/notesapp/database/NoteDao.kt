@@ -49,5 +49,7 @@ interface NoteDao {
     @Query("SELECT * FROM note_table WHERE DateScheduled IS NOT NULL")
     suspend fun getScheduledNotes(): List<Note>
 
+    @Query("SELECT * FROM note_table WHERE DateTimeScheduled > :currentTime")
+    fun getAwaitingNotificationNotes(currentTime : Long) : List<Note>
 
 }

@@ -1,5 +1,6 @@
 package com.example.notesapp.fragments
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -99,11 +100,14 @@ class CalendarFragment : Fragment() {
 
                     when (day.date) {
                         today -> {
-                            textView.setBackgroundResource(R.color.primaryColor)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                textView.setTextColor(resources.getColor(R.color.secondaryTextColor,context?.theme))
+                            }
+                            textView.setBackgroundResource(R.drawable.calendar_day_today_shape)
                             dotView.isVisible = false
                         }
                         selectedDate -> {
-                            textView.setBackgroundResource(R.color.primaryColor)
+                            textView.setBackgroundResource(R.drawable.calendar_day_selected_shape)
                             dotView.isVisible = false
                         }
                         else -> {

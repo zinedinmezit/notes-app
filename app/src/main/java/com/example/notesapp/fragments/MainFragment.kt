@@ -157,8 +157,7 @@ class MainFragment : Fragment() {
         })
 
     private fun createNoteAdapter() : NoteAdapter = NoteAdapter(NoteListener { id ->
-        this.findNavController()
-            .navigate(MainFragmentDirections.actionAppHomeToNoteDetailsFragment(id))
+        this.findNavController().navigate(MainFragmentDirections.actionAppHomeToNoteDetailsFragment(id))
     })
 
 }

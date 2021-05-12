@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
             bottomNav.setupWithNavController(navController)
+/*
             bottomNav.setOnNavigationItemReselectedListener {  }
+*/
 
         createChannel(
             getString(R.string.note_notification_channel_id),

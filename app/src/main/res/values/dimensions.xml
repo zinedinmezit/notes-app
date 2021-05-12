@@ -12,7 +12,12 @@
     <dimen name="priority_text_size">24sp</dimen>
     <dimen name="editext_createnote_size">80dp</dimen>
 
-<!-- Dimensions mainly used for FRAGMENT_CREATE -->
+    <!-- Dimensions mainly used for FRAGMENT_CREATE -->
     <dimen name="create_editText_note_heading">60dp</dimen>
     <dimen name="create_editText_note_details">250dp</dimen>
+
+    <!-- Dimensions mainly used for FRAGMENT_EDIT -->
+    <dimen name="edit_editText_note_heading">26sp</dimen>
+    <dimen name="edit_editText_note_details">18sp</dimen>
+
 </resources>

@@ -18,7 +18,9 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,11 +39,10 @@
             android:id="@+id/item_heading"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="#00000000"
             android:hint="@string/headingHint"
-            android:textSize="@dimen/note_item_heading_size"
+            android:textSize="@dimen/edit_editText_note_heading"
+            android:background="@color/white"
+            android:padding="5dp"
             app:EditTitleSetter="@{details.note}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,17 +54,15 @@
             android:id="@+id/item_details"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:gravity="start"
+            android:padding="5dp"
             android:hint="@string/detailsHint"
-            android:textSize="@dimen/note_item_details_size"
+            android:textSize="@dimen/edit_editText_note_details"
+            android:background="@color/white"
             app:EditDetailsSetter="@{details.note}"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout_timetable"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="#00000000"
-            android:gravity="start"
             app:layout_constraintTop_toBottomOf="@+id/item_heading"
             tools:text="@string/note_details_test2" />
 
@@ -71,6 +70,7 @@
             android:id="@+id/constraintLayout_timetable"
             android:layout_width="0dp"
             android:layout_height="70dp"
+            android:background="@color/secondaryColor"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -90,52 +90,51 @@
                 android:id="@+id/time_when_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/source_sans_pro_bold"
                 android:text="@string/time_when_label"
                 android:textAlignment="center"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/note_item_details_size"
-                app:layout_constraintBottom_toTopOf="@+id/item_time"
-                app:layout_constraintEnd_toEndOf="@+id/item_time"
-                app:layout_constraintStart_toStartOf="@+id/item_time" />
+                app:layout_constraintEnd_toStartOf="@+id/timetable"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/timetable" />
 
             <TextView
                 android:id="@+id/item_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:textAlignment="center"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/note_item_details_size"
                 app:TimeSetter="@{details.note}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/timetable"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/time_when_label"
+                app:layout_constraintStart_toStartOf="@+id/time_when_label"
+                app:layout_constraintTop_toBottomOf="@+id/time_when_label"
                 tools:text="@string/note_time_created_test" />
 
             <TextView
                 android:id="@+id/date_when_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:text="@string/date_when_label"
                 android:textAlignment="center"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/note_item_details_size"
-                app:layout_constraintBottom_toTopOf="@+id/item_date"
-                app:layout_constraintEnd_toEndOf="@+id/item_date"
-                app:layout_constraintStart_toStartOf="@+id/item_date" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/timetable"
+                app:layout_constraintTop_toTopOf="@+id/timetable" />
 
             <TextView
                 android:id="@+id/item_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:textAlignment="center"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/note_item_details_size"
                 app:DateSetter="@{details.note}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/timetable"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/date_when_label"
+                app:layout_constraintStart_toStartOf="@+id/date_when_label"
+                app:layout_constraintTop_toBottomOf="@+id/date_when_label"
                 tools:text="@string/note_date_created_test" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

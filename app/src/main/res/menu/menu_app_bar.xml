@@ -5,14 +5,14 @@
     <item
         android:id="@+id/action_search"
         android:title="@string/search"
-        android:icon="@drawable/baseline_search_black_18dp"
+        android:icon="@drawable/ic_action_name"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView"/>
 
     <item
         android:id="@+id/action_sort"
         android:title="@string/sort_by"
-        android:icon="@drawable/baseline_sort_black_18dp"
+        android:icon="@drawable/ic_action_sort"
         app:showAsAction="ifRoom">
         <menu>
             <item android:id="@+id/sort_priority"

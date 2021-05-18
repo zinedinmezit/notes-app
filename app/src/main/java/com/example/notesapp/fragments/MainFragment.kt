@@ -2,9 +2,7 @@ package com.example.notesapp.fragments
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -33,7 +31,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
         val adapter = createNoteAdapter()
 

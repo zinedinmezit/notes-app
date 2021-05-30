@@ -13,3 +13,4 @@ Note-taking type of Android application. Besides requiring information for the n
 ## Showcase
 
 ### Create note
+![creating_note](https://user-images.githubusercontent.com/44927926/120120709-5aaa4080-c19f-11eb-8814-47c9b7f0ed29.gif)

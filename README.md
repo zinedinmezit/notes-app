@@ -10,6 +10,17 @@ Note-taking type of Android application. Besides requiring information for the n
 * Set remainder
 * Calendar implementation
 
+## Tools and libraries
+* MVVM architecture
+* Navigation component
+* Data binding
+* Room
+* Kotlin Coroutines
+* Material design
+
+* *Afollestad* material dialogs (https://github.com/afollestad/material-dialogs) 
+* *kizitonwose* CalendarView (https://github.com/kizitonwose/CalendarView)
+
 ## Showcase
 
 | Create note  | Edit note | Delete note |
